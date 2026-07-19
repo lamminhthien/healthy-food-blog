@@ -1,1 +1,46 @@
-<!doctype html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Meal prep — Nhà bếp của Lyn</title><link rel="stylesheet" href="css/style.css"></head><body data-page="prep"><header><div class="container nav"><a class="brand" href="index.html">Nhà bếp <span>của Lyn</span></a><nav><a href="index.html">Trang chủ</a><a href="recipes.html">Công thức</a><a class="active" href="meal-prep.html">Meal prep</a><a href="articles.html">Góc sống khỏe</a><a href="about.html">Về chúng mình</a></nav><button class="menu">☰</button></div></header><main><section class="page-hero container"><p class="eyebrow">Meal prep tối giản</p><h1 id="plan-title">Thực đơn 5 ngày của Lyn</h1><p id="plan-desc"></p></section><section class="container about-grid"><img src="assets/images/hero-meal-prep.png" alt="Meal prep healthy"><div><p class="eyebrow">Danh sách mua sắm</p><h2>Mua một lần, dùng cả tuần</h2><ul id="shopping" class="prose"></ul><p>Chia rau đã rửa và protein thành từng hộp riêng. Khi đến bữa, chỉ cần phối lại theo khẩu vị.</p></div></section><section class="section container"><div class="section-head"><div><p class="eyebrow">Lịch ăn gợi ý</p><h2>5 ngày không phải nghĩ nhiều</h2></div></div><div id="plan-table" class="plan-table"></div></section><section class="quote"><p class="eyebrow">Mẹo nhỏ</p><h2>Meal prep không phải nấu sẵn mọi thứ. Chỉ cần chuẩn bị những điều khiến ngày mai dễ hơn.</h2></section></main><footer class="footer"><div class="container">© 2026 Nhà bếp của Lyn</div></footer><script src="js/main.js"></script></body></html>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <title>Meal prep — Nhà bếp của Lyn</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="prep" class="bg-[#faf9f6] font-['Be_Vietnam_Pro'] text-[15px] leading-[1.65] text-[#2f342d]"><header class="sticky top-0 z-10 flex h-[65px] items-center border-b border-[#e7e5df] bg-[#faf9f6]/92 md:h-[78px]"><div class="relative mx-auto flex w-full max-w-[1180px] items-center justify-between px-[18px] md:px-[26px]">
+        <a class="font-['Playfair_Display'] text-[24px] font-bold" href="index.html">Nhà bếp <span class="text-[#78966c]">của Lyn</span></a><nav class="js-nav-links absolute top-[64px] left-0 right-0 hidden flex-col gap-3 border-b border-[#e7e5df] bg-[#faf9f6] p-5 text-[13px] font-semibold md:static md:flex md:flex-row md:gap-7 md:border-0 md:bg-transparent md:p-0">
+          <a href="index.html">Trang chủ</a><a href="recipes.html">Công thức</a
+          ><a class="text-[#78966c]" href="meal-prep.html">Meal prep</a
+          ><a href="articles.html">Góc sống khỏe</a><a href="about.html">Về chúng mình</a>
+        </nav>
+        <button class="js-menu text-[22px] md:hidden">☰</button>
+      </div>
+    </header>
+    <main>
+      <section class="mx-auto max-w-[1180px] px-[18px] py-[48px] pb-[30px] text-center md:px-[26px] md:py-[74px] md:pb-[50px]"><p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Meal prep tối giản</p><h1 id="plan-title" class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">Thực đơn 5 ngày của Lyn</h1><p id="plan-desc" class="mx-auto my-[15px] max-w-[600px] text-[#74776f]"></p>
+      </section>
+      <section class="mx-auto grid max-w-[1180px] items-center gap-[70px] px-[18px] md:grid-cols-2 md:px-[26px]"><img class="h-[480px] w-full object-cover" src="assets/images/hero-meal-prep.png" alt="Meal prep healthy" />
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Danh sách mua sắm</p><h2 class="font-['Playfair_Display'] text-[30px] leading-[1.12]">Mua một lần, dùng cả tuần</h2><ul id="shopping" class="[&_li]:mb-[10px]"></ul>
+          <p>
+            Chia rau đã rửa và protein thành từng hộp riêng. Khi đến bữa, chỉ cần phối lại theo khẩu
+            vị.
+          </p>
+        </div>
+      </section>
+      <section class="mx-auto max-w-[1180px] px-[18px] py-[52px] md:px-[26px] md:py-[76px]"><div class="mb-[30px]">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Lịch ăn gợi ý</p><h2 class="font-['Playfair_Display'] text-[clamp(30px,4vw,48px)] leading-[1.12]">5 ngày không phải nghĩ nhiều</h2>
+          </div>
+        </div>
+        <div id="plan-table" class="overflow-auto bg-white px-[15px] py-[10px] md:px-[25px] md:py-[14px]"></div>
+      </section>
+      <section class="mx-auto max-w-[760px] px-[18px] py-[88px] text-center"><p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Mẹo nhỏ</p><h2 class="font-['Playfair_Display'] text-[clamp(28px,4vw,46px)] leading-[1.12]">
+          Meal prep không phải nấu sẵn mọi thứ. Chỉ cần chuẩn bị những điều khiến ngày mai dễ hơn.
+        </h2>
+      </section>
+    </main>
+    <footer class="mt-[70px] border-t border-[#e7e5df] py-[42px] text-[13px] text-[#74776f]"><div class="mx-auto max-w-[1180px] px-[18px] md:px-[26px]">© 2026 Nhà bếp của Lyn</div></footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,6 +1,97 @@
 [
-  {"id":1,"slug":"salad-uc-ga-bo","title":"Salad ức gà & bơ","category":"Bữa trưa","image":"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80","description":"Bữa trưa giàu protein, tươi mát và no lâu.","prepTime":15,"cookTime":12,"servings":2,"calories":420,"protein":38,"carbs":24,"fat":18,"ingredients":["200g ức gà","1 quả bơ chín","100g xà lách hỗn hợp","5 quả cà chua bi","1 muỗng dầu ô liu"],"steps":["Rửa rau, để ráo và cắt bơ.","Ướp gà với muối, tiêu và áp chảo 10–12 phút.","Cắt gà lát mỏng, trộn cùng rau và bơ.","Rưới dầu ô liu trước khi dùng."],"mealPrepTips":["Bảo quản rau và sốt riêng.","Dùng trong vòng 2 ngày."],"featured":true},
-  {"id":2,"slug":"oat-yogurt-berries","title":"Yến mạch sữa chua & berries","category":"Bữa sáng","image":"https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80","description":"Bữa sáng 5 phút, mát lành và giàu chất xơ.","prepTime":5,"cookTime":0,"servings":1,"calories":320,"protein":16,"carbs":44,"fat":9,"ingredients":["50g yến mạch","150g sữa chua Hy Lạp","Dâu và việt quất","1 thìa hạt chia"],"steps":["Cho yến mạch và sữa chua vào hũ.","Xếp quả mọng và hạt chia lên trên.","Ủ lạnh qua đêm hoặc dùng ngay."],"mealPrepTips":["Chuẩn bị tối đa 3 hũ một lần."],"featured":true},
-  {"id":3,"slug":"ca-hoi-rau-cu-nuong","title":"Cá hồi & rau củ nướng","category":"Bữa tối","image":"https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80","description":"Một khay tối giản giàu omega-3 cho bữa tối.","prepTime":10,"cookTime":25,"servings":2,"calories":510,"protein":35,"carbs":32,"fat":27,"ingredients":["2 miếng cá hồi","Bông cải xanh","Khoai lang","Chanh, thảo mộc"],"steps":["Làm nóng lò 200°C.","Xếp rau củ và cá hồi lên khay.","Nướng 20–25 phút, dùng cùng chanh."],"mealPrepTips":["Giữ lạnh tối đa 2 ngày."],"featured":true},
-  {"id":4,"slug":"energy-balls","title":"Energy balls cacao","category":"Ăn nhẹ","image":"https://images.unsplash.com/photo-1614088689614-5517a2e7a39f?auto=format&fit=crop&w=900&q=80","description":"Món ăn nhẹ ngọt dịu từ chà là và hạt.","prepTime":15,"cookTime":0,"servings":8,"calories":145,"protein":4,"carbs":18,"fat":7,"ingredients":["Chà là","Hạnh nhân","Bột cacao","Dừa sấy"],"steps":["Xay nhuyễn các nguyên liệu.","Vo tròn và lăn qua dừa sấy.","Làm lạnh 30 phút."],"mealPrepTips":["Bảo quản ngăn mát 5 ngày."],"featured":false}
+  {
+    "id": 1,
+    "slug": "salad-uc-ga-bo",
+    "title": "Salad ức gà & bơ",
+    "category": "Bữa trưa",
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80",
+    "description": "Bữa trưa giàu protein, tươi mát và no lâu.",
+    "prepTime": 15,
+    "cookTime": 12,
+    "servings": 2,
+    "calories": 420,
+    "protein": 38,
+    "carbs": 24,
+    "fat": 18,
+    "ingredients": [
+      "200g ức gà",
+      "1 quả bơ chín",
+      "100g xà lách hỗn hợp",
+      "5 quả cà chua bi",
+      "1 muỗng dầu ô liu"
+    ],
+    "steps": [
+      "Rửa rau, để ráo và cắt bơ.",
+      "Ướp gà với muối, tiêu và áp chảo 10–12 phút.",
+      "Cắt gà lát mỏng, trộn cùng rau và bơ.",
+      "Rưới dầu ô liu trước khi dùng."
+    ],
+    "mealPrepTips": ["Bảo quản rau và sốt riêng.", "Dùng trong vòng 2 ngày."],
+    "featured": true
+  },
+  {
+    "id": 2,
+    "slug": "oat-yogurt-berries",
+    "title": "Yến mạch sữa chua & berries",
+    "category": "Bữa sáng",
+    "image": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80",
+    "description": "Bữa sáng 5 phút, mát lành và giàu chất xơ.",
+    "prepTime": 5,
+    "cookTime": 0,
+    "servings": 1,
+    "calories": 320,
+    "protein": 16,
+    "carbs": 44,
+    "fat": 9,
+    "ingredients": ["50g yến mạch", "150g sữa chua Hy Lạp", "Dâu và việt quất", "1 thìa hạt chia"],
+    "steps": [
+      "Cho yến mạch và sữa chua vào hũ.",
+      "Xếp quả mọng và hạt chia lên trên.",
+      "Ủ lạnh qua đêm hoặc dùng ngay."
+    ],
+    "mealPrepTips": ["Chuẩn bị tối đa 3 hũ một lần."],
+    "featured": true
+  },
+  {
+    "id": 3,
+    "slug": "ca-hoi-rau-cu-nuong",
+    "title": "Cá hồi & rau củ nướng",
+    "category": "Bữa tối",
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80",
+    "description": "Một khay tối giản giàu omega-3 cho bữa tối.",
+    "prepTime": 10,
+    "cookTime": 25,
+    "servings": 2,
+    "calories": 510,
+    "protein": 35,
+    "carbs": 32,
+    "fat": 27,
+    "ingredients": ["2 miếng cá hồi", "Bông cải xanh", "Khoai lang", "Chanh, thảo mộc"],
+    "steps": [
+      "Làm nóng lò 200°C.",
+      "Xếp rau củ và cá hồi lên khay.",
+      "Nướng 20–25 phút, dùng cùng chanh."
+    ],
+    "mealPrepTips": ["Giữ lạnh tối đa 2 ngày."],
+    "featured": true
+  },
+  {
+    "id": 4,
+    "slug": "energy-balls",
+    "title": "Energy balls cacao",
+    "category": "Ăn nhẹ",
+    "image": "https://images.unsplash.com/photo-1614088689614-5517a2e7a39f?auto=format&fit=crop&w=900&q=80",
+    "description": "Món ăn nhẹ ngọt dịu từ chà là và hạt.",
+    "prepTime": 15,
+    "cookTime": 0,
+    "servings": 8,
+    "calories": 145,
+    "protein": 4,
+    "carbs": 18,
+    "fat": 7,
+    "ingredients": ["Chà là", "Hạnh nhân", "Bột cacao", "Dừa sấy"],
+    "steps": ["Xay nhuyễn các nguyên liệu.", "Vo tròn và lăn qua dừa sấy.", "Làm lạnh 30 phút."],
+    "mealPrepTips": ["Bảo quản ngăn mát 5 ngày."],
+    "featured": false
+  }
 ]
