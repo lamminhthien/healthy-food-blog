@@ -8,7 +8,13 @@ async function data(name) {
   return fetch(`${name}.json`).then((r) => r.json());
 }
 function layout() {
-  $('.js-menu')?.addEventListener('click', () => $('.js-nav-links').classList.toggle('hidden'));
+  const menu = $('.js-menu');
+  const navLinks = $('.js-nav-links');
+  if (!menu || !navLinks) return;
+  menu.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('hidden') === false;
+    menu.setAttribute('aria-expanded', String(isOpen));
+  });
   $$('.js-signup').forEach((f) =>
     f.addEventListener('submit', (e) => {
       e.preventDefault();
