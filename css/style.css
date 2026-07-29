@@ -108,4 +108,23 @@
   --color-sage-green-800: #37481e;
   --color-sage-green-900: #1c240f;
   --color-sage-green-950: #13190a;
+
+  /* Primary Theme Tokens */
+  --color-brand-primary: var(--color-fern-500);
+  --color-brand-hover: var(--color-fern-600);
+  --color-brand-dark: var(--color-fern-800);
+  --color-brand-light: var(--color-fern-50);
 }
+
+/* Fallback & Custom Theme Utilities for Tailwind */
+.text-brand-primary {
+  color: var(--color-fern-500);
+}
+.bg-brand-primary {
+  background-color: var(--color-fern-500);
+}
+.hover\:bg-brand-hover:hover {
+  background-color: var(--color-fern-600);
+}
+
+
