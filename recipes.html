@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body data-page="recipesPage" class="bg-[#faf9f6] font-['Be_Vietnam_Pro'] text-[15px] leading-[1.65] text-[#2f342d]">
-    <header class="sticky top-0 z-10 flex h-[65px] items-center border-b border-[#e7e5df] bg-[#faf9f6]/92 backdrop-blur md:h-[78px]"><div class="relative mx-auto flex w-full max-w-[1180px] items-center justify-between px-[18px] md:px-[26px]">
+    <header class="sticky top-0 z-10 flex h-[65px] items-center border-b border-[#e7e5df] bg-[#faf9f6]/92 backdrop-blur md:h-[78px]"><div class="js-nav relative mx-auto flex w-full max-w-[1180px] items-center justify-between px-[18px] md:px-[26px]">
         <a class="inline-flex items-center gap-2.5 font-['Playfair_Display'] text-[24px] font-bold leading-none" href="index.html" aria-label="Nhà bếp của Lyn - Trang chủ"><img class="h-10 w-10" src="assets/images/logo-lyn-kitchen.svg" alt="" /><span>Nhà bếp <span class="text-[#78966c]">của Lyn</span></span></a>
         <nav class="js-nav-links absolute top-[64px] left-0 right-0 hidden flex-col gap-3 border-b border-[#e7e5df] bg-[#faf9f6] p-5 text-[13px] font-semibold md:static md:flex md:flex-row md:gap-7 md:border-0 md:bg-transparent md:p-0">
           <a class="hover:text-[#78966c]" href="index.html">Trang chủ</a><a class="text-[#78966c]" href="recipes.html">Công thức</a
@@ -21,21 +21,21 @@
     </header>
     <main class="mx-auto max-w-[1180px] px-[18px] md:px-[26px]">
       <section class="py-[48px] pb-[30px] text-center md:py-[74px] md:pb-[50px]">
-        <p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Công thức healthy</p>
-        <h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">Dễ làm, đủ đầy, ngon lành</h1>
+        <p class="eyebrow">🥗 Công thức healthy</p>
+        <h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12] mt-4">Dễ làm, <span class="text-highlight">đủ đầy</span>, ngon lành</h1>
         <p class="mx-auto my-[15px] max-w-[600px] text-[#74776f]">Những công thức vừa vặn với nhịp sống bận rộn của bạn.</p>
       </section>
       <div class="mb-8 flex flex-wrap items-center gap-3">
-        <input id="search" class="min-w-[220px] flex-1 rounded border border-[#e7e5df] bg-white px-[15px] py-3" placeholder="Tìm tên món ăn..." /><select
+        <input id="search" type="search" class="min-w-[220px] flex-1 rounded-xl border border-[#e7e5df] bg-white px-[15px] py-3 shadow-sm" placeholder="Tìm tên món ăn..." /><select
           id="category"
-          class="border border-[#e7e5df] bg-white p-3"
+          class="rounded-xl border border-[#e7e5df] bg-white p-3 shadow-sm"
         >
           <option value="all">Tất cả bữa ăn</option>
           <option>Bữa sáng</option>
           <option>Bữa trưa</option>
           <option>Bữa tối</option>
           <option>Ăn nhẹ</option></select
-        ><select id="sort" class="border border-[#e7e5df] bg-white p-3">
+        ><select id="sort" class="rounded-xl border border-[#e7e5df] bg-white p-3 shadow-sm">
           <option value="default">Sắp xếp mặc định</option>
           <option value="time">Thời gian nhanh nhất</option>
           <option value="calories">Ít calories nhất</option></select
@@ -43,7 +43,18 @@
       </div>
       <div id="recipe-list" class="grid gap-[22px] md:grid-cols-3"></div>
     </main>
-    <footer class="mt-[70px] border-t border-[#e7e5df] py-[42px] text-[13px] text-[#74776f]"><div class="mx-auto max-w-[1180px] px-[18px] md:px-[26px]">© 2026 Nhà bếp của Lyn</div></footer>
+    <footer class="mt-[70px] border-t border-[#e7e5df] py-[42px] text-[13px] text-[#74776f]">
+      <div
+        class="mx-auto flex max-w-[1180px] flex-col gap-5 px-[18px] md:flex-row md:justify-between md:px-[26px]"
+      >
+        <span
+          class="inline-flex items-center gap-2.5 font-['Playfair_Display'] text-[24px] font-bold leading-none text-[#2f342d]"
+          ><img class="h-10 w-10" src="assets/images/logo-lyn-kitchen.svg" alt="" /><span
+            >Nhà bếp <span class="text-[#78966c]">của Lyn</span></span
+          ></span
+        ><span>© 2026 · Ăn uống lành mạnh theo cách của bạn.</span>
+      </div>
+    </footer>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title description">
+  <title id="title">Ảnh món ăn mặc định</title>
+  <desc id="description">Minh hoạ chiếc bát thức ăn lành mạnh với rau xanh</desc>
+  <rect width="1200" height="700" fill="#edf2e8"/>
+  <circle cx="170" cy="120" r="110" fill="#dce8d5" opacity=".8"/>
+  <circle cx="1060" cy="590" r="160" fill="#dce8d5" opacity=".75"/>
+  <path d="M415 315c55-145 315-145 370 0l-26 165c-20 125-298 125-318 0z" fill="#78966c"/>
+  <path d="M450 325c44-103 256-103 300 0l-20 125c-17 93-243 93-260 0z" fill="#fffaf0"/>
+  <circle cx="548" cy="358" r="52" fill="#a9c492"/>
+  <circle cx="655" cy="355" r="58" fill="#e5b36a"/>
+  <circle cx="613" cy="427" r="48" fill="#d97b5d"/>
+  <path d="M525 302c14-67 80-82 115-48-5 68-55 107-115 48z" fill="#557a52"/>
+  <path d="M655 306c10-54 58-72 94-47-5 54-43 88-94 47z" fill="#668c5d"/>
+  <text x="600" y="600" text-anchor="middle" fill="#557a52" font-family="Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="3">NHÀ BẾP CỦA LYN</text>
+</svg>

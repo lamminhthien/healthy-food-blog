@@ -1,1 +1,327 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-fern-50: #eff5f0;
+  --color-fern-100: #e0ebe2;
+  --color-fern-200: #c0d8c4;
+  --color-fern-300: #a1c4a7;
+  --color-fern-400: #82b089;
+  --color-fern-500: #629d6c;
+  --color-fern-600: #4f7d56;
+  --color-fern-700: #3b5e41;
+  --color-fern-800: #273f2b;
+  --color-fern-900: #141f16;
+  --color-fern-950: #0e160f;
+
+  --color-ash-grey-50: #f2f5ef;
+  --color-ash-grey-100: #e6ebe0;
+  --color-ash-grey-200: #cdd7c1;
+  --color-ash-grey-300: #b4c3a2;
+  --color-ash-grey-400: #9aaf83;
+  --color-ash-grey-500: #819c63;
+  --color-ash-grey-600: #677c50;
+  --color-ash-grey-700: #4e5d3c;
+  --color-ash-grey-800: #343e28;
+  --color-ash-grey-900: #1a1f14;
+  --color-ash-grey-950: #12160e;
+
+  --color-muted-teal-50: #f1f4f0;
+  --color-muted-teal-100: #e4eae1;
+  --color-muted-teal-200: #c9d5c3;
+  --color-muted-teal-300: #adc0a5;
+  --color-muted-teal-400: #92aa88;
+  --color-muted-teal-500: #77956a;
+  --color-muted-teal-600: #5f7755;
+  --color-muted-teal-700: #475a3f;
+  --color-muted-teal-800: #303c2a;
+  --color-muted-teal-900: #181e15;
+  --color-muted-teal-950: #11150f;
+
+  --color-blue-spruce-50: #eafaf7;
+  --color-blue-spruce-100: #d6f5ee;
+  --color-blue-spruce-200: #acecde;
+  --color-blue-spruce-300: #83e2cd;
+  --color-blue-spruce-400: #5ad8bd;
+  --color-blue-spruce-500: #30cfac;
+  --color-blue-spruce-600: #27a58a;
+  --color-blue-spruce-700: #1d7c67;
+  --color-blue-spruce-800: #135345;
+  --color-blue-spruce-900: #0a2922;
+  --color-blue-spruce-950: #071d18;
+
+  --color-beige-50: #f3f7ee;
+  --color-beige-100: #e8eedd;
+  --color-beige-200: #d0deba;
+  --color-beige-300: #b9cd98;
+  --color-beige-400: #a1bd75;
+  --color-beige-500: #8aac53;
+  --color-beige-600: #6e8a42;
+  --color-beige-700: #536732;
+  --color-beige-800: #374521;
+  --color-beige-900: #1c2211;
+  --color-beige-950: #13180c;
+
+  --color-dark-spruce-50: #f4f8ec;
+  --color-dark-spruce-100: #eaf1da;
+  --color-dark-spruce-200: #d5e4b4;
+  --color-dark-spruce-300: #c0d68f;
+  --color-dark-spruce-400: #abc969;
+  --color-dark-spruce-500: #95bb44;
+  --color-dark-spruce-600: #789636;
+  --color-dark-spruce-700: #5a7029;
+  --color-dark-spruce-800: #3c4b1b;
+  --color-dark-spruce-900: #1e250e;
+  --color-dark-spruce-950: #151a09;
+
+  --color-floral-white-50: #f7f7ed;
+  --color-floral-white-100: #f0eedb;
+  --color-floral-white-200: #e0ddb8;
+  --color-floral-white-300: #d1cc94;
+  --color-floral-white-400: #c2bb70;
+  --color-floral-white-500: #b3aa4d;
+  --color-floral-white-600: #8f883d;
+  --color-floral-white-700: #6b662e;
+  --color-floral-white-800: #47441f;
+  --color-floral-white-900: #24220f;
+  --color-floral-white-950: #19180b;
+
+  --color-lime-moss-50: #f6f8ed;
+  --color-lime-moss-100: #edf1da;
+  --color-lime-moss-200: #dbe2b6;
+  --color-lime-moss-300: #c9d491;
+  --color-lime-moss-400: #b7c66c;
+  --color-lime-moss-500: #a5b847;
+  --color-lime-moss-600: #849339;
+  --color-lime-moss-700: #636e2b;
+  --color-lime-moss-800: #42491d;
+  --color-lime-moss-900: #21250e;
+  --color-lime-moss-950: #171a0a;
+
+  --color-sage-green-50: #f3f8ed;
+  --color-sage-green-100: #e8f0db;
+  --color-sage-green-200: #d0e1b7;
+  --color-sage-green-300: #b9d392;
+  --color-sage-green-400: #a2c46e;
+  --color-sage-green-500: #8ab54a;
+  --color-sage-green-600: #6f913b;
+  --color-sage-green-700: #536d2c;
+  --color-sage-green-800: #37481e;
+  --color-sage-green-900: #1c240f;
+  --color-sage-green-950: #13190a;
+
+  /* Primary Theme Tokens */
+  --color-brand-primary: var(--color-fern-500);
+  --color-brand-hover: var(--color-fern-600);
+  --color-brand-dark: var(--color-fern-800);
+  --color-brand-light: var(--color-fern-50);
+}
+
+/* Fallback & Custom Theme Utilities for Tailwind */
+.text-brand-primary {
+  color: var(--color-fern-500);
+}
+.bg-brand-primary {
+  background-color: var(--color-fern-500);
+}
+.hover\:bg-brand-hover:hover {
+  background-color: var(--color-fern-600);
+}
+
+/* ─────────────────────────────────────────────
+   Card – elevated shadow lift on hover
+───────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(231, 229, 223, 0.7);
+  box-shadow: 0 2px 8px rgba(47, 52, 45, 0.06);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 12px 28px rgba(47, 52, 45, 0.12),
+    0 4px 10px rgba(47, 52, 45, 0.06);
+}
+.card img {
+  transition: transform 0.45s ease;
+}
+.card:hover img {
+  transform: scale(1.04);
+}
+
+/* ─────────────────────────────────────────────
+   Nav link – animated underline slide
+───────────────────────────────────────────── */
+nav a {
+  position: relative;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-fern-500);
+  transition: width 0.25s ease;
+}
+nav a:hover::after,
+nav a.text-\[\#78966c\]::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   Eyebrow badge – pill with soft glow
+───────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-fern-600);
+  background: linear-gradient(135deg, rgba(120,150,108,0.12) 0%, rgba(48,207,172,0.08) 100%);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 150, 108, 0.25);
+}
+
+/* ─────────────────────────────────────────────
+   Highlight text – gradient underline decoration
+───────────────────────────────────────────── */
+.text-highlight {
+  background: linear-gradient(
+    to bottom,
+    transparent 55%,
+    rgba(120, 150, 108, 0.28) 55%
+  );
+  padding-bottom: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   Section divider accent
+───────────────────────────────────────────── */
+.section-accent {
+  position: relative;
+  padding-left: 18px;
+}
+.section-accent::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  height: 80%;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, var(--color-fern-400), var(--color-blue-spruce-400));
+}
+
+/* ─────────────────────────────────────────────
+   Header scroll shadow
+───────────────────────────────────────────── */
+header.scrolled {
+  box-shadow: 0 4px 20px rgba(47, 52, 45, 0.08);
+}
+
+/* ─────────────────────────────────────────────
+   Form input – focus ring
+───────────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-fern-400);
+  box-shadow: 0 0 0 3px rgba(120, 150, 108, 0.15);
+}
+
+/* ─────────────────────────────────────────────
+   Stat box – nutrition/time info boxes
+───────────────────────────────────────────── */
+.stat-box {
+  background: #fff;
+  border: 1px solid rgba(231, 229, 223, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(47, 52, 45, 0.05);
+}
+
+/* ─────────────────────────────────────────────
+   Button primary – glow on hover
+───────────────────────────────────────────── */
+a.btn-primary,
+button.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+a.btn-primary::before,
+button.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  border-radius: inherit;
+}
+a.btn-primary:hover::before,
+button.btn-primary:hover::before {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────
+   Meal-prep table – row highlight
+───────────────────────────────────────────── */
+#plan-table > div:not(:first-child):hover {
+  background: rgba(120, 150, 108, 0.06);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+/* ─────────────────────────────────────────────
+   Hero section – subtle animated gradient overlay
+───────────────────────────────────────────── */
+@keyframes heroShimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─────────────────────────────────────────────
+   Smooth page fade-in
+───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* ─────────────────────────────────────────────
+   Tag chips (category labels inside cards)
+───────────────────────────────────────────── */
+.chip {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-fern-600);
+  background: rgba(120, 150, 108, 0.10);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 150, 108, 0.2);
+}
+
