@@ -8,26 +8,23 @@
     <link rel="icon" type="image/svg+xml" href="assets/images/logo-lyn-kitchen.svg" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="bg-[#faf9f6] font-['Be_Vietnam_Pro'] text-[15px] leading-[1.65] text-[#2f342d]">
-    <header class="sticky top-0 z-10 flex h-[65px] items-center border-b border-[#e7e5df] bg-[#faf9f6]/92 backdrop-blur-[12px] md:h-[78px]">
-      <div class="js-nav relative mx-auto flex w-full max-w-[1180px] items-center justify-between px-[18px] md:px-[26px]">
-        <a class="inline-flex items-center gap-2.5 font-['Playfair_Display'] text-[24px] font-bold leading-none" href="index.html" aria-label="Nhà bếp của Lyn - Trang chủ"><img class="h-10 w-10" src="assets/images/logo-lyn-kitchen.svg" alt="" /><span>Nhà bếp <span class="text-[#78966c]">của Lyn</span></span></a>
-        <nav class="js-nav-links absolute top-[64px] left-0 right-0 hidden flex-col gap-3 border-b border-[#e7e5df] bg-[#faf9f6] p-5 text-[13px] font-semibold md:static md:flex md:flex-row md:gap-7 md:border-0 md:bg-transparent md:p-0">
-          <a class="text-[#78966c]" href="index.html">Trang chủ</a><a class="hover:text-[#78966c]" href="recipes.html">Công thức</a
+  <body class="bg-[#faf9f6] font-['Be_Vietnam_Pro'] text-[15px] leading-[1.65] text-[#2f342d]"><header class="sticky top-0 z-10 flex h-[65px] items-center border-b border-[#e7e5df] bg-[#faf9f6]/92 md:h-[78px]"><div class="js-nav relative mx-auto flex w-full max-w-[1180px] items-center justify-between px-[18px] md:px-[26px]">
+        <a class="inline-flex items-center gap-2.5 font-['Playfair_Display'] text-[24px] font-bold leading-none" href="index.html" aria-label="Nhà bếp của Lyn - Trang chủ"><img class="h-10 w-10" src="assets/images/logo-lyn-kitchen.svg" alt="" /><span>Nhà bếp <span class="text-[#78966c]">của Lyn</span></span></a><nav class="js-nav-links absolute top-[64px] left-0 right-0 hidden flex-col gap-3 border-b border-[#e7e5df] bg-[#faf9f6] p-5 text-[13px] font-semibold md:static md:flex md:flex-row md:gap-7 md:border-0 md:bg-transparent md:p-0">
+          <a href="index.html">Trang chủ</a><a href="recipes.html">Công thức</a
           ><a href="meal-prep.html">Meal prep</a><a href="articles.html">Góc sống khỏe</a
-          ><a href="about.html">Về chúng mình</a>
+          ><a class="text-[#78966c]" href="about.html">Về chúng mình</a>
         </nav>
         <button class="js-menu text-[22px] md:hidden" type="button" aria-label="Mở menu" aria-expanded="false">☰</button>
       </div>
     </header>
     <main>
-      <section class="mx-auto max-w-[1180px] px-[18px] py-[48px] pb-[30px] text-center md:px-[26px] md:py-[74px] md:pb-[50px]"><p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Một căn bếp đủ chậm</p><h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">Ăn lành mạnh, theo cách gần gũi.</h1>
+      <section class="mx-auto max-w-[1180px] px-[18px] py-[48px] pb-[30px] text-center md:px-[26px] md:py-[74px] md:pb-[50px]"><p class="eyebrow">🌿 Một căn bếp đủ chậm</p><h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12] mt-4">Ăn tốt hơn, sống trọn vẹn hơn.</span></h1>
       </section>
-      <section class="mx-auto grid max-w-[1180px] items-center gap-[70px] px-[18px] md:grid-cols-2 md:px-[26px]"><img class="h-[480px] w-full object-cover"
+      <section class="mx-auto grid max-w-[1180px] items-center gap-[70px] px-[18px] md:grid-cols-2 md:px-[26px]"><img class="h-[480px] w-full object-cover rounded-2xl shadow-[0_12px_40px_rgba(47,52,45,0.12)]"
           src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1000&q=80"
           alt="Bàn ăn đầy rau củ"
         />
-        <div class="[&_h2]:mt-[42px] [&_h2]:font-['Playfair_Display'] [&_h2]:text-[30px]"><p class="text-[11px] font-bold uppercase tracking-[.15em] text-[#78966c]">Câu chuyện của chúng mình</p><h2>Không cần hoàn hảo để bắt đầu.</h2>
+        <div class="[&_h2]:mt-[42px] [&_h2]:font-['Playfair_Display'] [&_h2]:text-[30px] [&>p]:mt-4"><p class="eyebrow">📜 Câu chuyện của chúng mình</p><h2 class="section-accent">Không cần hoàn hảo để bắt đầu.</h2>
           <p>
             Nhà bếp của Lyn được tạo ra cho những người muốn chăm sóc cơ thể nhưng không muốn áp lực
             bởi những quy tắc cứng nhắc. Chúng mình tin rằng một bữa ăn cân bằng là bữa ăn bạn có
@@ -45,7 +42,18 @@
         </div>
       </section>
     </main>
-    <footer class="mt-[70px] border-t border-[#e7e5df] py-[42px] text-[13px] text-[#74776f]"><div class="mx-auto max-w-[1180px] px-[18px] md:px-[26px]">© 2026 Nhà bếp của Lyn</div></footer>
+     <footer class="mt-[70px] border-t border-[#e7e5df] py-[42px] text-[13px] text-[#74776f]">
+      <div
+        class="mx-auto flex max-w-[1180px] flex-col gap-5 px-[18px] md:flex-row md:justify-between md:px-[26px]"
+      >
+        <span
+          class="inline-flex items-center gap-2.5 font-['Playfair_Display'] text-[24px] font-bold leading-none text-[#2f342d]"
+          ><img class="h-10 w-10" src="assets/images/logo-lyn-kitchen.svg" alt="" /><span
+            >Nhà bếp <span class="text-[#78966c]">của Lyn</span></span
+          ></span
+        ><span>© 2026 · Ăn uống lành mạnh theo cách của bạn.</span>
+      </div>
+    </footer>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

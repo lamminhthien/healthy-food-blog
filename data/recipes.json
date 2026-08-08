@@ -1,6 +1,29 @@
 [
   {
     "id": 1,
+    "slug": "oat-yogurt-berries",
+    "title": "Yến mạch sữa chua & berries",
+    "category": "Bữa sáng",
+    "image": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80",
+    "description": "Bữa sáng 5 phút, mát lành và giàu chất xơ.",
+    "prepTime": 5,
+    "cookTime": 0,
+    "servings": 1,
+    "calories": 320,
+    "protein": 16,
+    "carbs": 44,
+    "fat": 9,
+    "ingredients": ["50g yến mạch", "150g sữa chua Hy Lạp", "Dâu và việt quất", "1 thìa hạt chia"],
+    "steps": [
+      "Cho yến mạch và sữa chua vào hũ.",
+      "Xếp quả mọng và hạt chia lên trên.",
+      "Ủ lạnh qua đêm hoặc dùng ngay."
+    ],
+    "mealPrepTips": ["Chuẩn bị tối đa 3 hũ một lần."],
+    "featured": true
+  },
+  {
+    "id": 2,
     "slug": "salad-uc-ga-bo",
     "title": "Salad ức gà & bơ",
     "category": "Bữa trưa",
@@ -27,29 +50,6 @@
       "Rưới dầu ô liu trước khi dùng."
     ],
     "mealPrepTips": ["Bảo quản rau và sốt riêng.", "Dùng trong vòng 2 ngày."],
-    "featured": true
-  },
-  {
-    "id": 2,
-    "slug": "oat-yogurt-berries",
-    "title": "Yến mạch sữa chua & berries",
-    "category": "Bữa sáng",
-    "image": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80",
-    "description": "Bữa sáng 5 phút, mát lành và giàu chất xơ.",
-    "prepTime": 5,
-    "cookTime": 0,
-    "servings": 1,
-    "calories": 320,
-    "protein": 16,
-    "carbs": 44,
-    "fat": 9,
-    "ingredients": ["50g yến mạch", "150g sữa chua Hy Lạp", "Dâu và việt quất", "1 thìa hạt chia"],
-    "steps": [
-      "Cho yến mạch và sữa chua vào hũ.",
-      "Xếp quả mọng và hạt chia lên trên.",
-      "Ủ lạnh qua đêm hoặc dùng ngay."
-    ],
-    "mealPrepTips": ["Chuẩn bị tối đa 3 hũ một lần."],
     "featured": true
   },
   {
@@ -80,7 +80,7 @@
     "slug": "energy-balls",
     "title": "Energy balls cacao",
     "category": "Ăn nhẹ",
-    "image": "https://images.unsplash.com/photo-1614088689614-5517a2e7a39f?auto=format&fit=crop&w=900&q=80",
+    "image": "https://www.cocooncooks.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fuf7dm1e0%2Fproduction%2F6c8155847a94a3aaece7e50b330e1950a976744a-2400x1600.jpg&w=1920&q=75&dpl=dpl_FRFrVEQv22RWmk5crdYe7B6LTpCb",
     "description": "Món ăn nhẹ ngọt dịu từ chà là và hạt.",
     "prepTime": 15,
     "cookTime": 0,
