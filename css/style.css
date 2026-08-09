@@ -153,25 +153,27 @@
 }
 
 /* ─────────────────────────────────────────────
-   Nav link – animated underline slide
+   Nav link – animated underline slide (desktop only)
 ───────────────────────────────────────────── */
 nav a {
   position: relative;
 }
-nav a::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-fern-500);
-  transition: width 0.25s ease;
-}
-nav a:hover::after,
-nav a.text-\[\#78966c\]::after {
-  width: 100%;
+@media (min-width: 768px) {
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-fern-500);
+    transition: width 0.25s ease;
+  }
+  nav a:hover::after,
+  nav a.text-\[\#78966c\]::after {
+    width: 100%;
+  }
 }
 
 /* ─────────────────────────────────────────────
