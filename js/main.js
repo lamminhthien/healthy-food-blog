@@ -16,7 +16,20 @@ function layout() {
   const menu = $('.js-menu');
   const navLinks = $('.js-nav-links');
   if (!menu || !navLinks) return;
+  const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+  const syncNav = () => {
+    if (!isMobile()) {
+      navLinks.classList.remove('hidden');
+      menu.setAttribute('aria-expanded', 'true');
+    } else {
+      navLinks.classList.add('hidden');
+      menu.setAttribute('aria-expanded', 'false');
+    }
+  };
+  syncNav();
+  window.addEventListener('resize', syncNav);
   menu.addEventListener('click', () => {
+    if (!isMobile()) return;
     const isOpen = navLinks.classList.toggle('hidden') === false;
     menu.setAttribute('aria-expanded', String(isOpen));
   });
