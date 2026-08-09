@@ -1,5 +1,8 @@
 import fallbackImage from '../assets/images/recipe-placeholder.svg';
 import healthyBreakfastImage from '../assets/images/articles/healthy-breakfast-editorial.png';
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({ immediate: true });
 
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
@@ -47,7 +50,96 @@ function layout() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+  initPWA();
 }
+
+function initPWA() {
+  // Offline status toast
+  const toast = document.createElement('div');
+  toast.id = 'pwa-offline-toast';
+  toast.className =
+    'fixed bottom-5 right-5 z-50 flex items-center gap-3 rounded-xl border border-[#eceae4] bg-white px-4 py-3 shadow-xl transition-all duration-300 transform translate-y-12 opacity-0 pointer-events-none';
+  toast.innerHTML = `
+    <span class="relative flex h-3 w-3">
+      <span class="status-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+      <span class="status-dot relative inline-flex h-3 w-3 rounded-full bg-amber-500"></span>
+    </span>
+    <span class="toast-msg text-[13px] font-medium text-[#2f342d]">Đang ngoại tuyến</span>
+  `;
+  document.body.appendChild(toast);
+
+  function updateOnlineStatus() {
+    const isOnline = navigator.onLine;
+    const msg = toast.querySelector('.toast-msg');
+    const ping = toast.querySelector('.status-ping');
+    const dot = toast.querySelector('.status-dot');
+
+    if (!isOnline) {
+      msg.textContent = 'Bạn đang ngoại tuyến — Xem nội dung đã lưu';
+      ping.className = 'status-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 animate-ping';
+      dot.className = 'status-dot relative inline-flex h-3 w-3 rounded-full bg-amber-500';
+      toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+    } else {
+      msg.textContent = 'Đã khôi phục kết nối Internet';
+      ping.className = 'status-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75';
+      dot.className = 'status-dot relative inline-flex h-3 w-3 rounded-full bg-emerald-500';
+      toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        if (navigator.onLine) {
+          toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+        }
+      }, 3000);
+    }
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  if (!navigator.onLine) updateOnlineStatus();
+
+  // App Install Prompt Button
+  let deferredPrompt;
+  const navContainer = $('.js-nav');
+  if (navContainer) {
+    const installBtn = document.createElement('button');
+    installBtn.id = 'pwa-install-btn';
+    installBtn.type = 'button';
+    installBtn.className =
+      'hidden items-center gap-1.5 rounded-full bg-[#78966c] px-3.5 py-1.5 text-[13px] font-semibold text-white transition hover:bg-[#647f5a] shadow-sm shrink-0 cursor-pointer';
+    installBtn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg><span>Cài ứng dụng</span>`;
+
+    const menuBtn = $('.js-menu');
+    if (menuBtn) {
+      navContainer.insertBefore(installBtn, menuBtn);
+    } else {
+      navContainer.appendChild(installBtn);
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.remove('hidden');
+      installBtn.classList.add('inline-flex');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.classList.add('hidden');
+        installBtn.classList.remove('inline-flex');
+      }
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBtn.classList.add('hidden');
+      installBtn.classList.remove('inline-flex');
+      deferredPrompt = null;
+    });
+  }
+}
+
 async function home() {
   const [recipes, articles] = await Promise.all([data('recipes'), data('articles')]);
   $('#featured').innerHTML = recipes
