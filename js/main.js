@@ -8,6 +8,10 @@ const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
 const imageSrc = (src) => src === 'assets/images/articles/healthy-breakfast-editorial.png' ? healthyBreakfastImage : src || fallbackImage;
 const imageFallback = `onerror="this.onerror=null;this.src='${fallbackImage}'"`;
+const parseArticleDate = (value) => {
+  const [day, month, year] = (value || '00.00.0000').split('.').map(Number);
+  return Date.UTC(year, month - 1, day);
+};
 const fmt = (r) =>
   `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageFallback} loading="lazy" decoding="async" alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
 const art = (a) =>
@@ -227,14 +231,11 @@ async function home() {
   }
   const latestContainer = $('#latest');
   if (latestContainer) {
-    const sentinel = createSentinel('home-article-sentinel', 'Đang tải thêm bài viết...', latestContainer);
-    const scroller = setupInfiniteScroll({
-      container: latestContainer,
-      sentinel,
-      renderItem: art,
-      batchSize: 6
-    });
-    scroller.reset(articles);
+    const latestArticles = [...articles]
+      .sort((a, b) => parseArticleDate(b.date) - parseArticleDate(a.date))
+      .slice(0, 6);
+
+    latestContainer.innerHTML = latestArticles.map(art).join('');
   }
 }
 async function recipesPage() {
