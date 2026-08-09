@@ -152,6 +152,22 @@
   transform: scale(1.04);
 }
 
+.article-prose h2 {
+  margin-top: 42px;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  line-height: 1.2;
+}
+.article-prose p {
+  margin-top: 14px;
+}
+.article-prose .article-lead {
+  margin-top: 0;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #444a42;
+}
+
 .plan-card {
   transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -375,4 +391,3 @@ main {
   border-radius: 999px;
   border: 1px solid rgba(120, 150, 108, 0.2);
 }
-

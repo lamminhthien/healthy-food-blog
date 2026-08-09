@@ -1,8 +1,9 @@
 import fallbackImage from '../assets/images/recipe-placeholder.svg';
+import healthyBreakfastImage from '../assets/images/articles/healthy-breakfast-editorial.png';
 
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
-const imageSrc = (src) => src || fallbackImage;
+const imageSrc = (src) => src === 'assets/images/articles/healthy-breakfast-editorial.png' ? healthyBreakfastImage : src || fallbackImage;
 const imageFallback = `onerror="this.onerror=null;this.src='${fallbackImage}'"`;
 const fmt = (r) =>
   `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageFallback} alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
@@ -130,13 +131,40 @@ async function recipeDetail() {
 }
 async function articlesPage() {
   const articles = await data('articles');
-  $('#article-list').innerHTML = articles.map(art).join('');
+  const filters = ['Tất cả', ...new Set(articles.map((a) => a.category))];
+  const filterWrap = $('#article-filters');
+  let active = 'Tất cả';
+  const render = () => {
+    const visible = active === 'Tất cả' ? articles : articles.filter((a) => a.category === active);
+    $('#article-list').innerHTML = visible.map(art).join('');
+    $('#article-count').textContent = `${visible.length} bài viết để bạn đọc chậm, lưu lại và áp dụng theo cách riêng.`;
+    filterWrap.querySelectorAll('button').forEach((button) => {
+      const selected = button.dataset.filter === active;
+      button.className = `rounded-full border px-3 py-1.5 text-[13px] font-semibold transition ${selected ? 'border-[#4f7d56] bg-[#4f7d56] text-white' : 'border-[#cfd9cb] bg-white text-[#4f7d56] hover:border-[#4f7d56]'}`;
+      button.setAttribute('aria-pressed', String(selected));
+    });
+  };
+  filterWrap.innerHTML = filters.map((filter) => `<button type="button" data-filter="${filter}" aria-pressed="false">${filter}</button>`).join('');
+  filterWrap.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-filter]');
+    if (!button) return;
+    active = button.dataset.filter;
+    render();
+  });
+  render();
 }
 async function articleDetail() {
   const articles = await data('articles'),
     a = articles.find((x) => x.id == new URLSearchParams(location.search).get('id')) || articles[0];
+  document.title = `${a.title} — Nhà bếp của Lyn`;
+  const sections = a.sections || [{ heading: 'Gợi ý thực hành', body: a.content, tips: [] }];
+  const sectionMarkup = sections
+    .map(
+      (section) => `<section><h2>${section.heading}</h2><p>${section.body}</p>${section.tips?.length ? `<ul class="mt-4 space-y-2 rounded-xl bg-[#f1f4ed] p-5 text-[#42483f]">${section.tips.map((tip) => `<li class="flex gap-2"><span class="text-[#4f7d56]">✓</span><span>${tip}</span></li>`).join('')}</ul>` : ''}</section>`
+    )
+    .join('');
   $('#article-detail').innerHTML =
-    `<p class="text-[11px] font-bold uppercase tracking-[.15em] text-[var(--color-fern-500)]">${a.category} · ${a.readTime}</p><h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">${a.title}</h1><p class="text-[19px] text-[#565a52]">${a.excerpt}</p><img class="my-[30px] h-[280px] w-full object-cover md:h-[450px] rounded-md" src="${imageSrc(a.image)}" ${imageFallback} alt="${a.title}"><div class="[&_h2]:mt-[42px] [&_h2]:font-['Playfair_Display'] [&_h2]:text-[30px]"><p>${a.content}</p><h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Một bữa ăn được chuẩn bị sẵn, một chai nước trên bàn làm việc hoặc 10 phút đi bộ cũng là những bước nhỏ đáng giá.</p></div>`;
+    `<p class="text-[11px] font-bold uppercase tracking-[.15em] text-[var(--color-fern-500)]">${a.category} · ${a.readTime} · ${a.date}</p><h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">${a.title}</h1><p class="text-[19px] text-[#565a52]">${a.excerpt}</p><img class="my-[30px] h-[280px] w-full object-cover md:h-[450px] rounded-md" src="${imageSrc(a.image)}" ${imageFallback} alt="${a.title}"><div class="article-prose"><p class="article-lead">${a.intro || a.content}</p>${sectionMarkup}<aside class="my-9 rounded-2xl border border-[#d5e2d2] bg-[#f1f6ef] p-6"><p class="eyebrow">Ghi nhớ</p><p class="mt-3 text-[17px] font-semibold text-[#3b5e41]">${a.takeaway || 'Bắt đầu bằng một thay đổi vừa sức và lặp lại theo nhịp của bạn.'}</p></aside>${a.video ? `<section class="my-10 overflow-hidden rounded-2xl border border-[#e7e5df] bg-white p-3 shadow-sm"><div class="mb-3 flex items-center gap-2 px-2 pt-1"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f0e4] text-sm">▶</span><div><p class="text-sm font-bold">Xem thêm bằng video</p><p class="text-xs text-[#74776f]">Một góc cảm hứng để cùng vào bếp</p></div></div><div class="aspect-video overflow-hidden rounded-xl bg-[#e8dfd0]"><iframe class="h-full w-full" src="${a.video}" title="Video về ${a.title}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></section>` : ''}<h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Một bữa ăn được chuẩn bị sẵn, một chai nước trên bàn làm việc hoặc 10 phút đi bộ cũng là những bước nhỏ đáng giá.</p></div>`;
 }
 async function prep() {
   const plans = await data('meal-plans');
