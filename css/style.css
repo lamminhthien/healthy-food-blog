@@ -155,7 +155,8 @@
 .plan-card {
   transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
-.plan-card:hover {
+.plan-card:hover,
+.plan-card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--color-fern-500);
   box-shadow: 0 12px 28px rgba(47, 52, 45, 0.12), 0 4px 10px rgba(47, 52, 45, 0.06);
@@ -165,7 +166,8 @@
   background-color: #f1f4ed;
   box-shadow: 0 12px 28px rgba(47, 52, 45, 0.12), 0 4px 10px rgba(47, 52, 45, 0.06);
 }
-.plan-card--selected:hover {
+.plan-card--selected:hover,
+.plan-card--selected:focus-visible {
   transform: translateY(-4px);
 }
 
