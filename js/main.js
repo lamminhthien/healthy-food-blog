@@ -148,7 +148,14 @@ async function prep() {
 
   const render = () => {
     const p = plans[activePlan];
-    const days = p.days.map((d) => Array.isArray(d) ? d : [d.day, d.breakfast, d.lunch, d.dinner, d.calories, d.protein]);
+    const rawDays = Array.isArray(p.days) ? p.days : [];
+    const days = rawDays.map((d) =>
+      Array.isArray(d)
+        ? d
+        : d && typeof d === 'object'
+        ? [d.day || '—', d.breakfast || '—', d.lunch || '—', d.dinner || '—', d.calories ?? null, d.protein ?? null]
+        : [String(d)]
+    );
     const hasNutrition = days.some((d) => d[4] != null || d[5] != null);
     const columns = hasNutrition ? 'grid-cols-[90px_repeat(3,1fr)_80px_80px]' : 'grid-cols-[90px_repeat(3,1fr)]';
     const headers = hasNutrition ? '<span>Calories</span><span>Protein</span>' : '';
