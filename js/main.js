@@ -171,10 +171,7 @@ async function prep() {
       : '';
     picker.querySelectorAll('[data-plan]').forEach((button, index) => {
       const selected = index === activePlan;
-      button.classList.toggle('border-[#78966c]', selected);
-      button.classList.toggle('bg-[#f1f4ed]', selected);
-      button.classList.toggle('ring-2', selected);
-      button.classList.toggle('ring-[#78966c]/30', selected);
+      button.classList.toggle('plan-card--selected', selected);
       button.setAttribute('aria-current', selected ? 'true' : 'false');
     });
   };
@@ -187,11 +184,15 @@ async function prep() {
     if (scrollToCard) picker.querySelector(`[data-plan="${activePlan}"]`).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   };
 
-  picker.innerHTML = plans.map((p, index) => `<button type="button" data-plan="${index}" class="min-w-[260px] snap-center rounded-2xl border border-[#e7e5df] bg-white p-5 text-left shadow-[0_4px_16px_rgba(47,52,45,.07)] transition hover:-translate-y-0.5 hover:border-[#78966c] md:min-w-[310px]"><span class="text-[11px] font-bold uppercase tracking-[.14em] text-[var(--color-fern-500)]">Thực đơn ${index + 1} · 7 ngày</span><span class="mt-2 block font-['Playfair_Display'] text-[22px] leading-[1.2]">${p.title}</span><span class="mt-2 block text-[13px] leading-relaxed text-[#74776f]">${p.description}</span><span class="mt-4 block text-[12px] font-semibold text-[var(--color-fern-600)]">${p.shopping.length} nguyên liệu · Xem thực đơn →</span></button>`).join('');
+  picker.innerHTML = plans.map((p, index) => `<button type="button" data-plan="${index}" class="plan-card min-w-[260px] snap-center rounded-2xl border border-[#e7e5df] bg-white p-5 text-left shadow-[0_4px_16px_rgba(47,52,45,.07)] transition hover:-translate-y-0.5 hover:border-[#78966c] md:min-w-[310px]"><span class="text-[11px] font-bold uppercase tracking-[.14em] text-[var(--color-fern-500)]">Thực đơn ${index + 1} · 7 ngày</span><span class="mt-2 block font-['Playfair_Display'] text-[22px] leading-[1.2]">${p.title}</span><span class="mt-2 block text-[13px] leading-relaxed text-[#74776f]">${p.description}</span><span class="mt-4 block text-[12px] font-semibold text-[var(--color-fern-600)]">${p.shopping.length} nguyên liệu · Xem thực đơn →</span></button>`).join('');
   picker.addEventListener('click', (event) => {
     const button = event.target.closest('[data-plan]');
     if (!button) return;
     selectPlan(Number(button.dataset.plan));
+    const target = $('#plan-schedule') || $('#plan-table');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
   previous.addEventListener('click', () => selectPlan(Math.max(0, activePlan - 1), true));
   next.addEventListener('click', () => selectPlan(Math.min(plans.length - 1, activePlan + 1), true));
