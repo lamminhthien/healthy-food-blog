@@ -291,6 +291,36 @@ button.btn-primary:hover::before {
   transition: background 0.2s ease;
 }
 
+#shopping {
+  display: grid;
+  max-height: 280px;
+  gap: 0.85rem;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+}
+
+#shopping li {
+  margin-bottom: 0;
+}
+
+#shopping::-webkit-scrollbar {
+  width: 8px;
+}
+
+#shopping::-webkit-scrollbar-track {
+  background: rgba(120, 150, 108, 0.08);
+  border-radius: 999px;
+}
+
+#shopping::-webkit-scrollbar-thumb {
+  background: rgba(98, 157, 108, 0.35);
+  border-radius: 999px;
+}
+
+#shopping::-webkit-scrollbar-thumb:hover {
+  background: rgba(98, 157, 108, 0.55);
+}
+
 /* ─────────────────────────────────────────────
    Hero section – subtle animated gradient overlay
 ───────────────────────────────────────────── */
