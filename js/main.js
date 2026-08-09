@@ -139,15 +139,74 @@ async function articleDetail() {
     `<p class="text-[11px] font-bold uppercase tracking-[.15em] text-[var(--color-fern-500)]">${a.category} · ${a.readTime}</p><h1 class="font-['Playfair_Display'] text-[clamp(42px,6vw,76px)] leading-[1.12]">${a.title}</h1><p class="text-[19px] text-[#565a52]">${a.excerpt}</p><img class="my-[30px] h-[280px] w-full object-cover md:h-[450px] rounded-md" src="${imageSrc(a.image)}" ${imageFallback} alt="${a.title}"><div class="[&_h2]:mt-[42px] [&_h2]:font-['Playfair_Display'] [&_h2]:text-[30px]"><p>${a.content}</p><h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Một bữa ăn được chuẩn bị sẵn, một chai nước trên bàn làm việc hoặc 10 phút đi bộ cũng là những bước nhỏ đáng giá.</p></div>`;
 }
 async function prep() {
-  const p = (await data('meal-plans'))[0];
-  $('#plan-title').textContent = p.title;
-  $('#plan-desc').textContent = p.description;
-  $('#shopping').innerHTML = p.shopping.map((x) => `<li>${x}</li>`).join('');
-  $('#plan-table').innerHTML =
-    '<div class="grid min-w-[530px] grid-cols-[90px_repeat(3,1fr)] border-b border-[#e7e5df] py-[17px] text-[13px] font-bold"><span>Ngày</span><span>Bữa sáng</span><span>Bữa trưa</span><span>Bữa tối</span></div>' +
-    p.days
-      .map((d, i) => `<div class="grid min-w-[530px] grid-cols-[90px_repeat(3,1fr)] border-b border-[#e7e5df] py-[17px] text-[13px] rounded-lg px-2 cursor-default">${d.map((x, j) => `<span class="${j === 0 ? 'font-semibold text-[var(--color-fern-600)]' : ''}">${x}</span>`).join('')}</div>`)
-      .join('');
+  const plans = await data('meal-plans');
+  const picker = $('#plan-picker');
+  const previous = $('#plan-previous');
+  const next = $('#plan-next');
+  const planFromUrl = Number(new URLSearchParams(location.search).get('plan'));
+  let activePlan = Number.isInteger(planFromUrl) && plans[planFromUrl] ? planFromUrl : plans.length - 1;
+
+  const render = () => {
+    const p = plans[activePlan];
+    const rawDays = Array.isArray(p.days) ? p.days : [];
+    const days = rawDays.map((d) =>
+      Array.isArray(d)
+        ? d
+        : d && typeof d === 'object'
+        ? [d.day || '—', d.breakfast || '—', d.lunch || '—', d.dinner || '—', d.calories ?? null, d.protein ?? null]
+        : [String(d)]
+    );
+    const hasNutrition = days.some((d) => d[4] != null || d[5] != null);
+    const columns = hasNutrition ? 'grid-cols-[90px_repeat(3,1fr)_80px_80px]' : 'grid-cols-[90px_repeat(3,1fr)]';
+    const headers = hasNutrition ? '<span>Calories</span><span>Protein</span>' : '';
+
+    $('#plan-title').textContent = p.title;
+    $('#plan-desc').textContent = p.description;
+    $('#shopping').innerHTML = p.shopping.map((x) => `<li>${x}</li>`).join('');
+    $('#plan-table').innerHTML =
+      `<div class="grid min-w-[530px] ${columns} gap-3 border-b border-[#e7e5df] py-[17px] text-[13px] font-bold"><span>Ngày</span><span>Bữa sáng</span><span>Bữa trưa</span><span>Bữa tối</span>${headers}</div>` +
+      days.map((d) => `<div class="grid min-w-[530px] ${columns} gap-3 border-b border-[#e7e5df] py-[17px] text-[13px] rounded-lg px-2 cursor-default">${d.map((x, j) => `<span class="${j === 0 ? 'font-semibold text-[var(--color-fern-600)]' : ''}">${j === 4 && x != null ? `${x} kcal` : x || '—'}</span>`).join('')}</div>`).join('');
+    $('#plan-tips').innerHTML = p.tips?.length
+      ? `<p class="eyebrow">🌿 Mẹo nhỏ</p><ul class="mt-4 text-left [&_li]:mb-2 [&_li]:pl-5 [&_li]:relative [&_li:before]:content-['•'] [&_li:before]:absolute [&_li:before]:left-0 [&_li:before]:text-[var(--color-fern-500)]">${p.tips.map((tip) => `<li>${tip}</li>`).join('')}</ul>`
+      : '';
+    picker.querySelectorAll('[data-plan]').forEach((button, index) => {
+      const selected = index === activePlan;
+      button.classList.toggle('plan-card--selected', selected);
+      button.setAttribute('aria-current', selected ? 'true' : 'false');
+    });
+  };
+
+  const selectPlan = (index, scrollToCard = false) => {
+    if (!plans[index] || index === activePlan && !scrollToCard) return;
+    activePlan = index;
+    history.replaceState(null, '', `${location.pathname}?plan=${activePlan}`);
+    render();
+    if (scrollToCard) picker.querySelector(`[data-plan="${activePlan}"]`).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  picker.innerHTML = plans.map((p, index) => `<button type="button" data-plan="${index}" class="plan-card min-w-[260px] snap-center rounded-2xl border border-[#e7e5df] bg-white p-5 text-left shadow-[0_4px_16px_rgba(47,52,45,.07)] transition hover:-translate-y-0.5 hover:border-[#78966c] md:min-w-[310px]"><span class="text-[11px] font-bold uppercase tracking-[.14em] text-[var(--color-fern-500)]">Thực đơn ${index + 1} · 7 ngày</span><span class="mt-2 block font-['Playfair_Display'] text-[22px] leading-[1.2]">${p.title}</span><span class="mt-2 block text-[13px] leading-relaxed text-[#74776f]">${p.description}</span><span class="mt-4 block text-[12px] font-semibold text-[var(--color-fern-600)]">${p.shopping.length} nguyên liệu · Xem thực đơn →</span></button>`).join('');
+  picker.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-plan]');
+    if (!button) return;
+    selectPlan(Number(button.dataset.plan));
+    const target = $('#plan-schedule') || $('#plan-table');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+  previous.addEventListener('click', () => selectPlan(Math.max(0, activePlan - 1), true));
+  next.addEventListener('click', () => selectPlan(Math.min(plans.length - 1, activePlan + 1), true));
+  let scrollFrame;
+  picker.addEventListener('scroll', () => {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(() => {
+      const center = picker.getBoundingClientRect().left + picker.clientWidth / 2;
+      const closest = [...picker.querySelectorAll('[data-plan]')].reduce((best, card) => Math.abs(card.getBoundingClientRect().left + card.offsetWidth / 2 - center) < Math.abs(best.getBoundingClientRect().left + best.offsetWidth / 2 - center) ? card : best);
+      selectPlan(Number(closest.dataset.plan));
+    });
+  }, { passive: true });
+  render();
+  requestAnimationFrame(() => picker.querySelector(`[data-plan="${activePlan}"]`).scrollIntoView({ block: 'nearest', inline: 'center' }));
 }
 
 layout();

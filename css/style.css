@@ -152,6 +152,25 @@
   transform: scale(1.04);
 }
 
+.plan-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.plan-card:hover,
+.plan-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-fern-500);
+  box-shadow: 0 12px 28px rgba(47, 52, 45, 0.12), 0 4px 10px rgba(47, 52, 45, 0.06);
+}
+.plan-card--selected {
+  border-color: var(--color-fern-500);
+  background-color: #f1f4ed;
+  box-shadow: 0 12px 28px rgba(47, 52, 45, 0.12), 0 4px 10px rgba(47, 52, 45, 0.06);
+}
+.plan-card--selected:hover,
+.plan-card--selected:focus-visible {
+  transform: translateY(-4px);
+}
+
 /* ─────────────────────────────────────────────
    Nav link – animated underline slide (desktop only)
 ───────────────────────────────────────────── */
@@ -289,6 +308,36 @@ button.btn-primary:hover::before {
   background: rgba(120, 150, 108, 0.06);
   border-radius: 8px;
   transition: background 0.2s ease;
+}
+
+#shopping {
+  display: grid;
+  max-height: 280px;
+  gap: 0.85rem;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+}
+
+#shopping li {
+  margin-bottom: 0;
+}
+
+#shopping::-webkit-scrollbar {
+  width: 8px;
+}
+
+#shopping::-webkit-scrollbar-track {
+  background: rgba(120, 150, 108, 0.08);
+  border-radius: 999px;
+}
+
+#shopping::-webkit-scrollbar-thumb {
+  background: rgba(98, 157, 108, 0.35);
+  border-radius: 999px;
+}
+
+#shopping::-webkit-scrollbar-thumb:hover {
+  background: rgba(98, 157, 108, 0.55);
 }
 
 /* ─────────────────────────────────────────────
