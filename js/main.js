@@ -9,9 +9,84 @@ const $$ = (s, p = document) => [...p.querySelectorAll(s)];
 const imageSrc = (src) => src === 'assets/images/articles/healthy-breakfast-editorial.png' ? healthyBreakfastImage : src || fallbackImage;
 const imageFallback = `onerror="this.onerror=null;this.src='${fallbackImage}'"`;
 const fmt = (r) =>
-  `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageFallback} alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
+  `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageFallback} loading="lazy" decoding="async" alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
 const art = (a) =>
-  `<article class="card"><a href="article-detail.html?id=${a.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(a.image)}" ${imageFallback} alt="${a.title}"></div><div class="p-5"><span class="chip">${a.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${a.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${a.excerpt}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>📅 ${a.date}</span><span>📖 ${a.readTime}</span></div></div></a></article>`;
+  `<article class="card"><a href="article-detail.html?id=${a.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(a.image)}" ${imageFallback} loading="lazy" decoding="async" alt="${a.title}"></div><div class="p-5"><span class="chip">${a.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${a.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${a.excerpt}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>📅 ${a.date}</span><span>📖 ${a.readTime}</span></div></div></a></article>`;
+
+function setupInfiniteScroll({ container, sentinel, renderItem, batchSize = 6 }) {
+  let currentIndex = 0;
+  let items = [];
+  let observer = null;
+
+  const loadMore = () => {
+    if (currentIndex >= items.length) return;
+    const nextBatch = items.slice(currentIndex, currentIndex + batchSize);
+    const fragment = document.createDocumentFragment();
+    nextBatch.forEach((item) => {
+      const temp = document.createElement('div');
+      temp.innerHTML = renderItem(item);
+      if (temp.firstElementChild) {
+        fragment.appendChild(temp.firstElementChild);
+      }
+    });
+    container.appendChild(fragment);
+    currentIndex += nextBatch.length;
+
+    if (currentIndex >= items.length) {
+      if (sentinel) sentinel.style.display = 'none';
+      if (observer) observer.disconnect();
+    } else {
+      if (sentinel) sentinel.style.display = 'flex';
+    }
+  };
+
+  const reset = (newItems) => {
+    items = newItems;
+    currentIndex = 0;
+    container.innerHTML = '';
+
+    if (items.length === 0) {
+      if (sentinel) sentinel.style.display = 'none';
+      return;
+    }
+
+    loadMore();
+
+    if (observer) observer.disconnect();
+    if (sentinel && currentIndex < items.length) {
+      sentinel.style.display = 'flex';
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { rootMargin: '200px' }
+      );
+      observer.observe(sentinel);
+    }
+  };
+
+  return { reset, loadMore };
+}
+
+function createSentinel(id, labelText, container) {
+  let sentinel = $('#' + id);
+  if (!sentinel && container && container.parentNode) {
+    sentinel = document.createElement('div');
+    sentinel.id = id;
+    sentinel.className = 'col-span-full py-8 text-center text-sm text-[#78966c] flex items-center justify-center gap-2 font-medium';
+    sentinel.innerHTML = `
+      <svg class="w-5 h-5 animate-spin text-[#78966c]" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>${labelText}</span>
+    `;
+    container.parentNode.insertBefore(sentinel, container.nextSibling);
+  }
+  return sentinel;
+}
 
 async function data(name) {
   return fetch(`${name}.json`, { cache: 'no-store' }).then((r) => r.json());
@@ -142,28 +217,57 @@ function initPWA() {
 
 async function home() {
   const [recipes, articles] = await Promise.all([data('recipes'), data('articles')]);
-  $('#featured').innerHTML = recipes
-    .filter((r) => r.featured)
-    .slice(0, 3)
-    .map(fmt)
-    .join('');
-  $('#latest').innerHTML = articles.map(art).join('');
+  const featuredContainer = $('#featured');
+  if (featuredContainer) {
+    featuredContainer.innerHTML = recipes
+      .filter((r) => r.featured)
+      .slice(0, 3)
+      .map(fmt)
+      .join('');
+  }
+  const latestContainer = $('#latest');
+  if (latestContainer) {
+    const sentinel = createSentinel('home-article-sentinel', 'Đang tải thêm bài viết...', latestContainer);
+    const scroller = setupInfiniteScroll({
+      container: latestContainer,
+      sentinel,
+      renderItem: art,
+      batchSize: 6
+    });
+    scroller.reset(articles);
+  }
 }
 async function recipesPage() {
   const recipes = await data('recipes');
+  const listContainer = $('#recipe-list');
+  const sentinel = createSentinel('recipe-sentinel', 'Đang tải thêm công thức...', listContainer);
+  const scroller = setupInfiniteScroll({
+    container: listContainer,
+    sentinel,
+    renderItem: fmt,
+    batchSize: 6
+  });
+
   const render = () => {
     let x = [...recipes],
-      q = $('#search').value.toLowerCase(),
-      c = $('#category').value,
-      s = $('#sort').value;
-    x = x.filter((r) => (c === 'all' || r.category === c) && r.title.toLowerCase().includes(q));
+      q = $('#search')?.value?.toLowerCase()?.trim() || '',
+      c = $('#category')?.value || 'all',
+      s = $('#sort')?.value || 'default';
+    x = x.filter((r) => (c === 'all' || r.category === c) && (r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q)));
     if (s === 'calories') x.sort((a, b) => a.calories - b.calories);
     if (s === 'time') x.sort((a, b) => a.prepTime + a.cookTime - (b.prepTime + b.cookTime));
-    $('#recipe-list').innerHTML = x.map(fmt).join('') || '<p>Chưa tìm thấy món phù hợp.</p>';
-    $('#result-count').textContent = `${x.length} công thức`;
+    
+    if ($('#result-count')) $('#result-count').textContent = `${x.length} công thức`;
+    
+    if (x.length === 0) {
+      listContainer.innerHTML = '<p class="col-span-full py-8 text-center text-[#74776f]">Chưa tìm thấy món phù hợp.</p>';
+      if (sentinel) sentinel.style.display = 'none';
+    } else {
+      scroller.reset(x);
+    }
   };
   ['search', 'category', 'sort'].forEach((id) =>
-    $('#' + id).addEventListener(id === 'search' ? 'input' : 'change', render)
+    $('#' + id)?.addEventListener(id === 'search' ? 'input' : 'change', render)
   );
   render();
 }
@@ -226,23 +330,46 @@ async function articlesPage() {
   const filters = ['Tất cả', ...new Set(articles.map((a) => a.category))];
   const filterWrap = $('#article-filters');
   let active = 'Tất cả';
+
+  const listContainer = $('#article-list');
+  const sentinel = createSentinel('article-sentinel', 'Đang tải thêm bài viết...', listContainer);
+  const scroller = setupInfiniteScroll({
+    container: listContainer,
+    sentinel,
+    renderItem: art,
+    batchSize: 6
+  });
+
   const render = () => {
     const visible = active === 'Tất cả' ? articles : articles.filter((a) => a.category === active);
-    $('#article-list').innerHTML = visible.map(art).join('');
-    $('#article-count').textContent = `${visible.length} bài viết để bạn đọc chậm, lưu lại và áp dụng theo cách riêng.`;
-    filterWrap.querySelectorAll('button').forEach((button) => {
-      const selected = button.dataset.filter === active;
-      button.className = `rounded-full border px-3 py-1.5 text-[13px] font-semibold transition ${selected ? 'border-[#4f7d56] bg-[#4f7d56] text-white' : 'border-[#cfd9cb] bg-white text-[#4f7d56] hover:border-[#4f7d56]'}`;
-      button.setAttribute('aria-pressed', String(selected));
-    });
+    if ($('#article-count')) {
+      $('#article-count').textContent = `${visible.length} bài viết để bạn đọc chậm, lưu lại và áp dụng theo cách riêng.`;
+    }
+    if (filterWrap) {
+      filterWrap.querySelectorAll('button').forEach((button) => {
+        const selected = button.dataset.filter === active;
+        button.className = `rounded-full border px-3 py-1.5 text-[13px] font-semibold transition ${selected ? 'border-[#4f7d56] bg-[#4f7d56] text-white' : 'border-[#cfd9cb] bg-white text-[#4f7d56] hover:border-[#4f7d56]'}`;
+        button.setAttribute('aria-pressed', String(selected));
+      });
+    }
+
+    if (visible.length === 0) {
+      listContainer.innerHTML = '<p class="col-span-full py-8 text-center text-[#74776f]">Chưa có bài viết trong mục này.</p>';
+      if (sentinel) sentinel.style.display = 'none';
+    } else {
+      scroller.reset(visible);
+    }
   };
-  filterWrap.innerHTML = filters.map((filter) => `<button type="button" data-filter="${filter}" aria-pressed="false">${filter}</button>`).join('');
-  filterWrap.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-filter]');
-    if (!button) return;
-    active = button.dataset.filter;
-    render();
-  });
+
+  if (filterWrap) {
+    filterWrap.innerHTML = filters.map((filter) => `<button type="button" data-filter="${filter}" aria-pressed="false">${filter}</button>`).join('');
+    filterWrap.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-filter]');
+      if (!button) return;
+      active = button.dataset.filter;
+      render();
+    });
+  }
   render();
 }
 async function articleDetail() {
