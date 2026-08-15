@@ -1,8 +1,19 @@
 import fallbackImage from '../assets/images/recipe-placeholder.svg';
 import healthyBreakfastImage from '../assets/images/articles/healthy-breakfast-editorial.jpeg';
+import ogImage from '../assets/images/articles/og-image.jpeg';
 import { registerSW } from 'virtual:pwa-register';
 
 registerSW({ immediate: true });
+
+// Replace OG image URLs for local development
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const ogImageMeta = document.querySelector('meta[property="og:image"]');
+    const twitterImageMeta = document.querySelector('meta[name="twitter:image"]');
+    if (ogImageMeta) ogImageMeta.setAttribute('content', ogImage);
+    if (twitterImageMeta) twitterImageMeta.setAttribute('content', ogImage);
+  });
+}
 
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
@@ -274,7 +285,7 @@ async function home() {
   setSeoMeta({
     title: 'Healthy Food — Nhà bếp của Lyn',
     description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
-    image: 'assets/images/articles/healthy-breakfast-editorial.jpeg'
+    image: 'assets/images/articles/og-image.jpeg'
   });
   const [recipes, articles] = await Promise.all([data('recipes'), data('articles')]);
   const featuredContainer = $('#featured');
@@ -298,7 +309,7 @@ async function recipesPage() {
   setSeoMeta({
     title: 'Công thức — Nhà bếp của Lyn',
     description: 'Công thức bữa sáng, bữa trưa, bữa tối và ăn nhẹ giúp bạn nấu nhanh mà vẫn đủ đầy.',
-    image: 'assets/images/articles/healthy-breakfast-editorial.jpeg'
+    image: 'assets/images/articles/og-image.jpeg'
   });
   const recipes = await data('recipes');
   const listContainer = $('#recipe-list');
@@ -396,7 +407,7 @@ async function articlesPage() {
   setSeoMeta({
     title: 'Góc sống khỏe — Nhà bếp của Lyn',
     description: 'Bài viết về lối sống khỏe, thói quen ăn uống và cảm hứng meal prep cho ngày thường.',
-    image: 'assets/images/articles/healthy-breakfast-editorial.jpeg'
+    image: 'assets/images/articles/og-image.jpeg'
   });
   const articles = await data('articles');
   const filters = ['Tất cả', ...new Set(articles.map((a) => a.category))];
@@ -466,7 +477,7 @@ async function prep() {
   setSeoMeta({
     title: 'Meal prep — Nhà bếp của Lyn',
     description: 'Thực đơn meal prep và danh sách mua sắm để bạn chuẩn bị bữa ăn cả tuần dễ dàng.',
-    image: 'assets/images/articles/healthy-breakfast-editorial.jpeg'
+    image: 'assets/images/articles/og-image.jpeg'
   });
   const plans = await data('meal-plans');
   const picker = $('#plan-picker');
