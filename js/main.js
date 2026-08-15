@@ -7,15 +7,18 @@ registerSW({ immediate: true });
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
 const imageSrc = (src) => src === 'assets/images/articles/healthy-breakfast-editorial.jpeg' ? healthyBreakfastImage : src || fallbackImage;
+// Content images are partly hosted remotely. Always leave a local, branded fallback
+// so a blocked CDN, expired URL, or offline visit never creates a blank card.
 const imageFallback = `onerror="this.onerror=null;this.src='${fallbackImage}'"`;
+const imageAttrs = `${imageFallback} loading="lazy" decoding="async" referrerpolicy="no-referrer"`;
 const parseArticleDate = (value) => {
   const [day, month, year] = (value || '00.00.0000').split('.').map(Number);
   return Date.UTC(year, month - 1, day);
 };
 const fmt = (r) =>
-  `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageFallback} loading="lazy" decoding="async" alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
+  `<article class="card"><a href="recipe-detail.html?id=${r.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(r.image)}" ${imageAttrs} alt="${r.title}"></div><div class="p-5"><span class="chip">${r.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${r.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${r.description}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>⏱ ${r.prepTime + r.cookTime} phút</span><span>🔥 ${r.calories} kcal</span></div></div></a></article>`;
 const art = (a) =>
-  `<article class="card"><a href="article-detail.html?id=${a.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(a.image)}" ${imageFallback} loading="lazy" decoding="async" alt="${a.title}"></div><div class="p-5"><span class="chip">${a.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${a.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${a.excerpt}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>📅 ${a.date}</span><span>📖 ${a.readTime}</span></div></div></a></article>`;
+  `<article class="card"><a href="article-detail.html?id=${a.id}" class="block"><div class="overflow-hidden"><img class="h-[235px] w-full object-cover" src="${imageSrc(a.image)}" ${imageAttrs} alt="${a.title}"></div><div class="p-5"><span class="chip">${a.category}</span><h3 class="mt-[10px] mb-[8px] font-['Playfair_Display'] text-[22px] leading-[1.18] line-clamp-2">${a.title}</h3><p class="text-[14px] text-[#565a52] line-clamp-2">${a.excerpt}</p><div class="mt-3 flex flex-wrap items-center gap-x-[12px] gap-y-1 text-[12px] text-[#74776f] border-t border-[#f0ede8] pt-3"><span>📅 ${a.date}</span><span>📖 ${a.readTime}</span></div></div></a></article>`;
 
 function setupInfiniteScroll({ container, sentinel, renderItem, batchSize = 6 }) {
   let currentIndex = 0;
@@ -220,7 +223,11 @@ function initPWA() {
 }
 
 function setSeoMeta({ title, description, image, url = window.location.href, siteName = 'Nhà bếp của Lyn' }) {
-  const seoTitle = title ? `${title} — ${siteName}` : siteName;
+  // Some pages pass a complete title from the HTML/data. Do not append the
+  // site name twice (e.g. "... — Nhà bếp của Lyn — Nhà bếp của Lyn").
+  const seoTitle = title
+    ? title.replace(new RegExp(`\\s*[—|-]\\s*${siteName.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\s*$`, 'i'), '') + ` — ${siteName}`
+    : siteName;
   const seoDescription =
     description || 'Những bài viết về bữa ăn lành mạnh, meal prep và lối sống khỏe mạnh của Nhà bếp của Lyn.';
   const resolvedUrl = new URL(url, window.location.href).href;
@@ -248,7 +255,7 @@ function setSeoMeta({ title, description, image, url = window.location.href, sit
   setMetaTag('name', 'description', seoDescription);
   setMetaTag('property', 'og:title', seoTitle);
   setMetaTag('property', 'og:description', seoDescription);
-  setMetaTag('property', 'og:type', 'article');
+  setMetaTag('property', 'og:type', document.body.dataset.page?.toLowerCase().includes('detail') ? 'article' : 'website');
   setMetaTag('property', 'og:site_name', siteName);
   setMetaTag('property', 'og:image', resolvedImage);
   setMetaTag('property', 'og:url', resolvedUrl);

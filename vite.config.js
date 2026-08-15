@@ -12,7 +12,7 @@ export default defineConfig({
         enabled: true,
         type: 'module',
       },
-      includeAssets: ['icons/*.png', 'assets/images/*.svg', 'assets/images/*.jpg', 'assets/images/*.png', '*.json'],
+      includeAssets: ['icons/*.png', 'assets/images/*.svg', 'assets/images/*.jpg', 'assets/images/*.jpeg', 'assets/images/*.png', '*.json'],
       manifest: {
         name: 'Nhà bếp của Lyn — Healthy Lifestyle',
         short_name: "Lyn's Kitchen",
@@ -110,4 +110,3 @@ export default defineConfig({
     },
   },
 });
-
