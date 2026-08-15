@@ -14,7 +14,7 @@ export default defineConfig({
       },
       includeAssets: ['icons/*.png', 'assets/images/*.svg', 'assets/images/*.jpg', 'assets/images/*.png', '*.json'],
       manifest: {
-        name: 'Nhà bếp của Lyn — Healthy Lifestyle',
+        name: 'Nhà bếp của Lyn — Healthy Food',
         short_name: "Lyn's Kitchen",
         description: 'Blog chia sẻ công thức ăn uống lành mạnh, tin tức và thực đơn meal prep cân bằng dinh dưỡng.',
         theme_color: '#78966c',

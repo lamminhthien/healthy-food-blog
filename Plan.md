@@ -18,7 +18,7 @@ Trong phiên bản đầu tiên, dự án sẽ được phát triển dưới d�
 
 ## 2. Mục tiêu của dự án
 
-- Xây dựng một website cá nhân hoàn chỉnh về chủ đề healthy lifestyle.
+- Xây dựng một website cá nhân hoàn chỉnh về chủ đề healthy food (Ăn ngon, sống khỏe -Nhà bếp của Lyn — Eat Well, Live Well).
 - Cung cấp các bài viết và công thức dễ hiểu, dễ áp dụng.
 - Giúp người dùng tham khảo thực đơn và chuẩn bị bữa ăn khoa học.
 - Ứng dụng AI để tạo hình ảnh món ăn phù hợp với nội dung bài viết.
