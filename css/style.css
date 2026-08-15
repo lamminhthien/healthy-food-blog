@@ -391,3 +391,45 @@ main {
   border-radius: 999px;
   border: 1px solid rgba(120, 150, 108, 0.2);
 }
+
+/* ─────────────────────────────────────────────
+   1080p Resolution Optimization
+   Fixes layout and sizing issues at 1920×1080
+───────────────────────────────────────────── */
+@media (min-width: 1080px) {
+  /* Hero section – percentage-based height for large screens */
+  section:first-of-type > div {
+    aspect-ratio: auto;
+    min-height: 80vh;
+    max-height: none;
+  }
+
+  section:first-of-type > div h1 {
+    font-size: clamp(54px, 5.5vw, 84px) !important;
+  }
+
+  section:first-of-type > div > div {
+    max-width: 680px;
+  }
+
+  /* Hero paragraph text */
+  section:first-of-type > div p[class*="text-[15px]"] {
+    font-size: 18px;
+  }
+
+  /* Hero buttons */
+  section:first-of-type a.btn-primary {
+    font-size: 16px;
+    padding: 16px 30px;
+  }
+
+  /* Adjust container max-width for better use of 1080p screen */
+  .mx-auto.max-w-\[1180px\] {
+    max-width: 1100px;
+  }
+
+  /* Section headings on 1080p */
+  h2[class*="font-\['Playfair_Display'\]"] {
+    font-size: clamp(36px, 4.2vw, 56px);
+  }
+}
