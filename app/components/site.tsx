@@ -135,6 +135,58 @@ export function ArticleCard({ article }: { article: Article }) {
   );
 }
 
+export function NewsletterSection() {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitted(true);
+  }
+
+  return (
+    <section className="mx-auto max-w-[1180px] px-[18px] py-5 md:px-[26px] md:py-10">
+      <div className="rounded-2xl bg-gradient-to-br from-[#30372e] to-[#394535] p-[28px] text-center shadow-[0_8px_32px_rgba(47,52,45,0.18)] md:p-[40px]">
+        <p className="eyebrow mb-3 border-[#a5c49a]/25 bg-[#a5c49a]/[0.12] text-[#a5c49a]">
+          📬 Bản tin hàng tuần
+        </p>
+        <h2 className="mb-2 font-['Playfair_Display'] text-[24px] text-white">
+          Nhận cảm hứng nấu ăn mỗi tuần
+        </h2>
+        <p className="mb-5 text-[14px] text-[#c5c9c1]">
+          Công thức mới, mẹo meal prep và câu chuyện bếp núc — thẳng vào hộp thư của bạn.
+        </p>
+        {submitted ? (
+          <p className="mx-auto max-w-[480px] rounded-full bg-[#78966c] px-[18px] py-[12px] font-semibold text-white">
+            Cảm ơn bạn! Hẹn gặp bạn trong bản tin sắp tới. 🌿
+          </p>
+        ) : (
+          <form
+            className="mx-auto flex max-w-[480px] flex-col gap-2.5 md:flex-row md:gap-0"
+            onSubmit={handleSubmit}
+          >
+            <input
+              className="w-full flex-1 rounded-full border border-white/20 bg-white/10 px-[18px] py-[12px] text-white outline-none placeholder:text-white/50 focus:bg-white/15 md:rounded-r-none"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+              placeholder="Email của bạn"
+              aria-label="Email của bạn"
+            />
+            <button
+              className="btn-primary inline-flex w-full justify-center rounded-full bg-[#7f9f71] px-[21px] py-[12px] font-semibold text-white transition hover:-translate-y-px hover:bg-[#6e8f62] md:w-auto md:rounded-l-none"
+              type="submit"
+            >
+              Nhận bản tin
+            </button>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export function PageIntro({
   eyebrow,
   title,
@@ -240,7 +292,8 @@ export function HomePage({ recipes, articles }: { recipes: Recipe[]; articles: A
                 Chuẩn bị trước, <span className="text-highlight">thảnh thơi hơn.</span>
               </h2>
               <p className="mt-4">
-                Thực đơn 5 ngày với nguyên liệu quen thuộc và cách phối linh hoạt.
+                Thực đơn 5 ngày với nguyên liệu quen thuộc và cách phối linh hoạt. Dành ít thời gian
+                hơn trong bếp, nhiều thời gian hơn cho bạn.
               </p>
               <Link
                 className="btn-primary mt-2 inline-flex rounded-full bg-[#78966c] px-[21px] py-[13px] font-semibold text-white"
@@ -270,6 +323,7 @@ export function HomePage({ recipes, articles }: { recipes: Recipe[]; articles: A
           <ArticleCard key={a.id} article={a} />
         ))}
       </ListingSection>
+      <NewsletterSection />
     </Shell>
   );
 }

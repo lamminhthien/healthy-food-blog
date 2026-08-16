@@ -3,6 +3,12 @@ import { useRouter } from 'next/navigation';
 import type { Article, Recipe } from '../../lib/content';
 import { Shell } from './site';
 const img = (v?: string) => v || '/assets/images/recipe-placeholder.svg';
+const defaultTags: Record<string, string[]> = {
+  'Bữa sáng': ['Bữa sáng lành mạnh', 'Năng lượng bền vững'],
+  'Bữa trưa': ['Bữa trưa cân bằng', 'Phù hợp mang đi'],
+  'Bữa tối': ['Bữa tối đủ đầy', 'Dễ nấu tại nhà'],
+  'Ăn nhẹ': ['Ăn nhẹ lành mạnh', 'Nhanh gọn'],
+};
 export function DetailPage({ item, type }: { item: Recipe | Article; type: 'recipe' | 'article' }) {
   const router = useRouter();
   const recipe = type === 'recipe' ? (item as Recipe) : null;
@@ -31,6 +37,13 @@ export function DetailPage({ item, type }: { item: Recipe | Article; type: 'reci
           <p className="text-[19px] text-[#565a52]">
             {recipe ? recipe.description : article?.excerpt}
           </p>
+          {recipe ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {(recipe.tags || defaultTags[recipe.category] || []).map((tag: string) => (
+                <span className="chip" key={tag}>{tag}</span>
+              ))}
+            </div>
+          ) : null}
           <img
             className="my-[30px] h-[280px] w-full rounded-md object-cover md:h-[450px]"
             src={img(item.image)}
@@ -67,12 +80,12 @@ function RecipeBody({ recipe }: { recipe: Recipe }) {
     serving: recipe.servingSuggestions || profile.serving || 'Dùng ngay sau khi hoàn thành.',
     tips: recipe.tips || profile.tips || [], faqs: recipe.faqs || profile.faqs || [],
     storage: recipe.storage || 'Để nguội hoàn toàn trước khi cất hộp kín. Bảo quản ngăn mát 2–3 ngày.',
-    notes: recipe.notes || 'Nêm nếm từng chút một để dễ kiểm soát hương vị và độ chín.',
+    notes: recipe.notes || 'Chuẩn bị sẵn nguyên liệu và nêm nếm từng chút một. Điều này giúp bạn dễ kiểm soát cả hương vị lẫn độ chín của món.',
   };
   const list = (items: string[]) => <ul>{items.map((x) => <li key={x}>{x}</li>)}</ul>;
   return (
-    <div className="article-prose">
-      <div className="mt-5 flex flex-wrap gap-2">{d.tags.map((tag: string) => <span className="chip" key={tag}>{tag}</span>)}</div>
+    <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_300px] md:items-start">
+      <div className="article-prose">
       <div className="my-[30px] grid grid-cols-2 bg-white md:grid-cols-4"><Stat value={`${recipe.prepTime}'`} label="chuẩn bị" /><Stat value={`${recipe.cookTime}'`} label="nấu" /><Stat value={recipe.servings} label="khẩu phần" /><Stat value={recipe.calories} label="kcal / phần" /></div>
       <h2 className="!mt-0">Về món này</h2><p>{d.intro}</p>
       <h2>Vì sao bạn sẽ thích</h2>{list(d.why)}
@@ -87,6 +100,16 @@ function RecipeBody({ recipe }: { recipe: Recipe }) {
       <h2>Meal prep, bảo quản & hâm nóng</h2>{list(recipe.mealPrepTips || [])}<p>{d.storage}</p>
       <div className="mt-8 rounded-xl bg-[#f1f4ed] p-5"><b className="text-[var(--color-fern-600)]">Lưu ý từ Lyn</b><p className="mt-2">{d.notes}</p></div>
       <h2>Câu hỏi thường gặp</h2>{d.faqs.map(([q, a]: [string, string]) => <details key={q} className="mb-3 rounded-lg border border-[#e7e5df] bg-white px-4 py-3"><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-2 text-[#565a52]">{a}</p></details>)}
+      </div>
+      <aside className="rounded-2xl bg-[#e8dfd0] p-6 md:sticky md:top-24 md:p-8">
+        <span className="text-[11px] font-bold uppercase tracking-[.15em] text-[var(--color-fern-500)]">Dinh dưỡng tham khảo</span>
+        <p className="mt-4 text-[21px] leading-[1.45]">
+          <b>{recipe.protein}g</b> protein<br />
+          <b>{recipe.carbs}g</b> carbs<br />
+          <b>{recipe.fat}g</b> chất béo
+        </p>
+        <p className="mt-2 text-[17px] leading-[1.5]">Con số mang tính tham khảo và có thể thay đổi theo nguyên liệu bạn dùng.</p>
+      </aside>
     </div>
   );
 }
