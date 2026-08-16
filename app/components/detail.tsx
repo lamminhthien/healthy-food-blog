@@ -108,14 +108,23 @@ function RecipeBody({ recipe }: { recipe: Recipe }) {
       <div className="mt-8 rounded-xl bg-[#f1f4ed] p-5"><b className="text-[var(--color-fern-600)]">Lưu ý từ Lyn</b><p className="mt-2">{d.notes}</p></div>
       <h2>Câu hỏi thường gặp</h2>{d.faqs.map(([q, a]: [string, string]) => <details key={q} className="mb-3 rounded-lg border border-[#e7e5df] bg-white px-4 py-3"><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-2 text-[#565a52]">{a}</p></details>)}
       </div>
-      <aside className="rounded-2xl bg-[#e8dfd0] p-6 md:sticky md:top-24 md:p-8">
-        <span className="text-[11px] font-bold uppercase tracking-[.15em] text-[var(--color-fern-500)]">Dinh dưỡng tham khảo</span>
-        <p className="mt-4 text-[21px] leading-[1.45]">
-          <b>{recipe.protein}g</b> protein<br />
-          <b>{recipe.carbs}g</b> carbs<br />
-          <b>{recipe.fat}g</b> chất béo
-        </p>
-        <p className="mt-2 text-[17px] leading-[1.5]">Con số mang tính tham khảo và có thể thay đổi theo nguyên liệu bạn dùng.</p>
+      <aside className="rounded-xl border border-[#d8c9a8] bg-[#e8dfd0] p-5 md:sticky md:top-24">
+        <span className="text-[10px] font-bold uppercase tracking-[.14em] text-[var(--color-fern-500)]">Dinh dưỡng tham khảo</span>
+        <dl className="mt-3 divide-y divide-[#d8c9a8]/70 text-[14px] leading-[1.45]">
+          <div className="flex items-baseline justify-between gap-3 py-[6px]">
+            <dt className="text-[#565a52]">Protein</dt>
+            <dd><b className="font-semibold text-[#2f342d]">{recipe.protein}g</b></dd>
+          </div>
+          <div className="flex items-baseline justify-between gap-3 py-[6px]">
+            <dt className="text-[#565a52]">Carbs</dt>
+            <dd><b className="font-semibold text-[#2f342d]">{recipe.carbs}g</b></dd>
+          </div>
+          <div className="flex items-baseline justify-between gap-3 py-[6px]">
+            <dt className="text-[#565a52]">Chất béo</dt>
+            <dd><b className="font-semibold text-[#2f342d]">{recipe.fat}g</b></dd>
+          </div>
+        </dl>
+        <p className="mt-3 text-[12px] leading-[1.5] text-[#74776f]">Con số mang tính tham khảo và có thể thay đổi theo nguyên liệu bạn dùng.</p>
       </aside>
     </div>
   );
