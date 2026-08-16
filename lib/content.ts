@@ -6,7 +6,19 @@ export type Article = Record<string, any> & { id: number; title: string };
 export type MealPlan = Record<string, any> & { title: string; description: string; shopping: string[]; days: any[] };
 
 function readData<T>(name: string): T[] {
-  return JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', `${name}.json`), 'utf8'));
+  const possiblePaths = [
+    path.join(process.cwd(), 'public', 'data', `${name}.json`),
+    path.join(process.cwd(), 'public', `${name}.json`),
+    path.join(process.cwd(), 'data', `${name}.json`),
+  ];
+
+  for (const filePath of possiblePaths) {
+    if (fs.existsSync(filePath)) {
+      return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    }
+  }
+
+  return [];
 }
 
 export function getRecipes() {

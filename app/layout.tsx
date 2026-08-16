@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '../public/css/style.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nhabepcualyn.com'),
   title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
   description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
   icons: { icon: '/assets/images/logo-lyn-kitchen.svg' },
