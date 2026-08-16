@@ -136,7 +136,7 @@ function ArticleBody({ article }: { article: Article }) {
           </div>
         </section>
       ) : null}
-      <h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Những bước nhỏ được lặp lại cũng là tiến bộ đáng giá.</p>
+      <h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Một bữa ăn được chuẩn bị sẵn, một chai nước trên bàn làm việc hoặc 10 phút đi bộ cũng là những bước nhỏ đáng giá.</p>
     </div>
   );
 }
