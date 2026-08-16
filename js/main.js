@@ -17,7 +17,11 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => [...p.querySelectorAll(s)];
-const imageSrc = (src) => src === 'assets/images/articles/healthy-breakfast-editorial.jpeg' ? healthyBreakfastImage : src || fallbackImage;
+const imageMap = {
+  'assets/images/articles/healthy-breakfast-editorial.jpeg': healthyBreakfastImage,
+  'assets/images/articles/og-image.jpeg': ogImage,
+};
+const imageSrc = (src) => imageMap[src] || src || fallbackImage;
 const imageFallback = `onerror="this.onerror=null;this.src='${fallbackImage}'"`;
 const parseArticleDate = (value) => {
   const [day, month, year] = (value || '00.00.0000').split('.').map(Number);
