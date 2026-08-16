@@ -53,6 +53,14 @@ export function DetailPage({ item, type }: { item: Recipe | Article; type: 'reci
               event.currentTarget.src = '/assets/images/recipe-placeholder.svg';
             }}
           />
+          {recipe ? (
+            <div className="my-[30px] grid grid-cols-2 bg-white md:grid-cols-4">
+              <Stat value={`${recipe.prepTime}'`} label="chuẩn bị" />
+              <Stat value={`${recipe.cookTime}'`} label="nấu" />
+              <Stat value={recipe.servings} label="khẩu phần" />
+              <Stat value={recipe.calories} label="kcal / phần" />
+            </div>
+          ) : null}
           {recipe ? <RecipeBody recipe={recipe} /> : <ArticleBody article={article!} />}
         </article>
       </main>
@@ -86,7 +94,6 @@ function RecipeBody({ recipe }: { recipe: Recipe }) {
   return (
     <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_300px] md:items-start">
       <div className="article-prose">
-      <div className="my-[30px] grid grid-cols-2 bg-white md:grid-cols-4"><Stat value={`${recipe.prepTime}'`} label="chuẩn bị" /><Stat value={`${recipe.cookTime}'`} label="nấu" /><Stat value={recipe.servings} label="khẩu phần" /><Stat value={recipe.calories} label="kcal / phần" /></div>
       <h2 className="!mt-0">Về món này</h2><p>{d.intro}</p>
       <h2>Vì sao bạn sẽ thích</h2>{list(d.why)}
       <h2>Nguyên liệu bạn cần</h2>
