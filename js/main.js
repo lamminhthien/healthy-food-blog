@@ -1,6 +1,6 @@
 import fallbackImage from '../assets/images/recipe-placeholder.svg';
 import healthyBreakfastImage from '../assets/images/articles/healthy-breakfast-editorial.jpeg';
-import ogImage from '../assets/og-image.jpeg';
+import ogImage from '../assets/images/articles/og-image.jpeg';
 import { registerSW } from 'virtual:pwa-register';
 
 registerSW({ immediate: true });
