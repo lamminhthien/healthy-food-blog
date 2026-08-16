@@ -5,6 +5,26 @@ export const metadata: Metadata = {
   title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
   description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
   icons: { icon: '/assets/images/logo-lyn-kitchen.svg' },
+    type: 'website',
+    locale: 'vi_VN',
+    title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
+    description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
+    siteName: 'Nhà bếp của Lyn',
+    images: [
+      {
+        url: '/assets/images/articles/healthy-breakfast-editorial.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Bữa sáng healthy',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
+    description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
+    images: ['/assets/images/articles/healthy-breakfast-editorial.jpeg'],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
