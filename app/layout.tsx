@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
   description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
   icons: { icon: '/assets/images/logo-lyn-kitchen.svg' },
+  openGraph: {
     type: 'website',
     locale: 'vi_VN',
     title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
