@@ -114,7 +114,28 @@ function ArticleBody({ article }: { article: Article }) {
           {article.takeaway || 'Bắt đầu bằng một thay đổi vừa sức và lặp lại theo nhịp của bạn.'}
         </p>
       </aside>
-      {article.video ? <section className="my-10 overflow-hidden rounded-2xl border border-[#e7e5df] bg-white p-3 shadow-sm"><p className="px-2 font-bold">▶ Xem thêm bằng video</p><div className="mt-3 aspect-video overflow-hidden rounded-xl"><iframe className="h-full w-full" src={article.video} title={`Video về ${article.title}`} loading="lazy" allowFullScreen /></div></section> : null}
+      {article.video ? (
+        <section className="my-10 overflow-hidden rounded-2xl border border-[#e7e5df] bg-white p-3 shadow-sm">
+          <div className="mb-3 flex items-center gap-2 px-2 pt-1">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f0e4] text-sm">▶</span>
+            <div>
+              <p className="text-sm font-bold">Xem thêm bằng video</p>
+              <p className="text-xs text-[#74776f]">Một góc cảm hứng để cùng vào bếp</p>
+            </div>
+          </div>
+          <div className="aspect-video overflow-hidden rounded-xl bg-[#e8dfd0]">
+            <iframe
+              className="h-full w-full border-0"
+              src={article.video}
+              title={`Video về ${article.title}`}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </section>
+      ) : null}
       <h2>Điều quan trọng là sự đều đặn</h2><p>Hãy bắt đầu bằng lựa chọn vừa sức với lịch sống của bạn. Những bước nhỏ được lặp lại cũng là tiến bộ đáng giá.</p>
     </div>
   );
