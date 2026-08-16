@@ -12,7 +12,7 @@ export default defineConfig({
         enabled: true,
         type: 'module',
       },
-      includeAssets: ['icons/*.png', 'assets/images/*.svg', 'assets/images/*.jpg', 'assets/images/*.png', 'assets/images/**/*.jpeg', '*.json'],
+      includeAssets: ['icons/*.png', 'assets/images/*.svg', 'assets/images/*.jpg', 'assets/images/*.png', 'assets/images/**/*.jpeg', '*.json', 'assets/videos/*'],
       manifest: {
         name: 'Nhà bếp của Lyn — Healthy Food',
         short_name: "Lyn's Kitchen",
@@ -95,7 +95,7 @@ export default defineConfig({
       },
     }),
   ],
-  publicDir: 'data',
+  publicDir: 'public',
   build: {
     rollupOptions: {
       input: [
