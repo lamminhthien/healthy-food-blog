@@ -95,7 +95,7 @@ export default defineConfig({
       },
     }),
   ],
-  publicDir: 'data',
+  publicDir: 'public',
   build: {
     rollupOptions: {
       input: [
