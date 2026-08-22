@@ -1,19 +1,5 @@
 @import 'tailwindcss';
 
-/* Keep the same typography as the original HTML pages. The font files are
-   self-hosted by next/font, so the layout does not depend on a runtime CDN. */
-body {
-  font-family: 'Be Vietnam Pro', sans-serif;
-}
-
-[class*="font-['Be_Vietnam_Pro']"] {
-  font-family: 'Be Vietnam Pro', sans-serif;
-}
-
-[class*="font-['Playfair_Display']"] {
-  font-family: 'Playfair Display', serif;
-}
-
 @theme {
   --color-fern-50: #eff5f0;
   --color-fern-100: #e0ebe2;
