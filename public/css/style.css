@@ -381,6 +381,7 @@ main {
 ───────────────────────────────────────────── */
 .chip {
   display: inline-block;
+  align-self: flex-start;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
