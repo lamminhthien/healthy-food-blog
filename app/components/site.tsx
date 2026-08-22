@@ -319,7 +319,7 @@ export function HomePage({ recipes, articles }: { recipes: Recipe[]; articles: A
         }
         href="/articles"
       >
-        {latest.slice(0, 3).map((a) => (
+        {latest.slice(0, 6).map((a) => (
           <ArticleCard key={a.id} article={a} />
         ))}
       </ListingSection>
