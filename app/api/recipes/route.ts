@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { findById, getRecipes } from '../../../lib/content';
+import { findBySlug, getRecipes } from '../../../lib/content';
 
 export function GET(request: Request) {
   const recipes = getRecipes();
-  const id = new URL(request.url).searchParams.get('id') ?? undefined;
-  return NextResponse.json(id ? findById(recipes, id) : recipes);
+  const slug = new URL(request.url).searchParams.get('slug') ?? undefined;
+  return NextResponse.json(slug ? findBySlug(recipes, slug) : recipes);
 }

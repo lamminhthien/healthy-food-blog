@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export type Recipe = Record<string, any> & { id: number; title: string };
-export type Article = Record<string, any> & { id: number; title: string };
+export type Recipe = Record<string, any> & { id: number; slug: string; title: string };
+export type Article = Record<string, any> & { id: number; slug: string; title: string };
 export type MealPlan = Record<string, any> & { title: string; description: string; shopping: string[]; days: any[] };
 
 function readData<T>(name: string): T[] {
@@ -35,4 +35,8 @@ export function getMealPlans() {
 
 export function findById<T extends { id: number }>(items: T[], id?: string) {
   return items.find((item) => String(item.id) === id) ?? items[0];
+}
+
+export function findBySlug<T extends { slug: string }>(items: T[], slug?: string) {
+  return items.find((item) => item.slug === slug);
 }

@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { DetailPage } from '../../components/detail';
-import { findById, getRecipes } from '../../../lib/content';
+import { findBySlug, getRecipes } from '../../../lib/content';
 
 export function generateStaticParams() {
-  return getRecipes().map((recipe) => ({ id: String(recipe.id) }));
+  return getRecipes().map((recipe) => ({ slug: recipe.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const recipe = findById(getRecipes(), (await params).id);
+  const recipe = findBySlug(getRecipes(), (await params).slug);
   if (!recipe) return {};
 
   const title = recipe.seoTitle || recipe.title;
@@ -43,8 +43,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const recipe = findById(getRecipes(), (await params).id);
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const recipe = findBySlug(getRecipes(), (await params).slug);
   if (!recipe) notFound();
   return <DetailPage item={recipe} type="recipe" />;
 }

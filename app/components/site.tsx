@@ -102,7 +102,7 @@ export function Shell({
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <ContentCard
-      href={`/recipe-detail/${recipe.id}`}
+      href={`/recipe-detail/${recipe.slug}`}
       image={image(recipe.image)}
       title={recipe.title}
       category={recipe.category}
@@ -120,7 +120,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 export function ArticleCard({ article }: { article: Article }) {
   return (
     <ContentCard
-      href={`/article-detail/${article.id}`}
+      href={`/article-detail/${article.slug}`}
       image={image(article.image)}
       title={article.title}
       category={article.category}

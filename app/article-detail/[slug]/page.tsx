@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { DetailPage } from '../../components/detail';
-import { findById, getArticles } from '../../../lib/content';
+import { findBySlug, getArticles } from '../../../lib/content';
 
 export function generateStaticParams() {
-  return getArticles().map((article) => ({ id: String(article.id) }));
+  return getArticles().map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const article = findById(getArticles(), (await params).id);
+  const article = findBySlug(getArticles(), (await params).slug);
   if (!article) return {};
 
   const title = article.seoTitle || article.title;
@@ -43,8 +43,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const article = findById(getArticles(), (await params).id);
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const article = findBySlug(getArticles(), (await params).slug);
   if (!article) notFound();
   return <DetailPage item={article} type="article" />;
 }

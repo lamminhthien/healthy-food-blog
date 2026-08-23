@@ -15,14 +15,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const recipes = getRecipes().map((r) => ({
-    url: `${SITE_URL}/recipe-detail/${r.id}`,
+    url: `${SITE_URL}/recipe-detail/${r.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
   const articles = getArticles().map((a) => ({
-    url: `${SITE_URL}/article-detail/${a.id}`,
+    url: `${SITE_URL}/article-detail/${a.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
