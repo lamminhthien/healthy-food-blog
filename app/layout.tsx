@@ -1,11 +1,27 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '../public/css/style.css';
+
+export const viewport: Viewport = {
+  themeColor: '#78966C',
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://healthy-food-blog.vercel.app'),
   title: 'Nhà bếp của Lyn — Ăn ngon, sống khỏe',
   description: 'Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.',
-  icons: { icon: '/assets/images/logo-lyn-kitchen.svg' },
+  applicationName: 'Healthy Blog',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Healthy Blog',
+  },
+  icons: {
+    icon: '/assets/images/logo-lyn-kitchen.svg',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'vi_VN',

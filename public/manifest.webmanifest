@@ -1,0 +1,33 @@
+{
+  "name": "Nhà bếp của Lyn — Ăn ngon, sống khỏe",
+  "short_name": "Healthy Food Blog",
+  "description": "Những công thức healthy, meal prep và góc sống khỏe cho một nhịp ăn uống tự nhiên hơn.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF9F6",
+  "theme_color": "#78966C",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["food", "lifestyle", "health"]
+}
