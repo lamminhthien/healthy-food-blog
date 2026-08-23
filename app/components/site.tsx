@@ -1,16 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { ArrowUp } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Article, Recipe } from '../../lib/content';
 import { ContentCard, SectionHeader } from './ui';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 const image = (value?: string) =>
   value === 'assets/images/articles/healthy-breakfast-editorial.jpeg'
@@ -331,9 +326,32 @@ export function HomePage({ recipes, articles }: { recipes: Recipe[]; articles: A
         ))}
       </ListingSection>
       <NewsletterSection />
+      <ScrollToTop />
     </Shell>
   );
 }
+export function ScrollToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return (
+    <button
+      type="button"
+      aria-label="Lên đầu trang"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={`fixed right-[18px] bottom-[18px] z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#5d874f] text-white shadow-[0_8px_20px_rgba(47,52,45,.28)] transition hover:-translate-y-px hover:bg-[#6e8f62] md:right-[26px] md:bottom-[26px] md:h-12 md:w-12 ${
+        visible ? 'opacity-100' : 'pointer-events-none translate-y-2 opacity-0'
+      }`}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
+  );
+}
+
 function ListingSection({
   eyebrow,
   title,

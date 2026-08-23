@@ -5,10 +5,12 @@ const nextConfig = {};
 
 const withPWA = withPWAInit({
   dest: 'public',
+  // Disable in dev to avoid spamming GET / 200 via the SW + reloadOnOnline.
+  // The plugin is only useful in production for installability/offline.
+  disable: process.env.NODE_ENV === 'development',
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
-  disable: false,
   // Only pre-cache the app shell + static assets. Runtime caching is
   // enabled for images (CacheFirst). JSON/API are intentionally
   // excluded via navigateFallbackDenylist to keep the content fresh.
