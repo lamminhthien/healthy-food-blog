@@ -14,7 +14,7 @@ const withPWA = withPWAInit({
   // excluded via navigateFallbackDenylist to keep the content fresh.
   workboxOptions: {
     navigateFallback: '/',
-    navigateFallbackDenylist: [/^\/api/],
+    navigateFallbackDenylist: [/^\/api/, /^\/googlef50272b24e27d5c3\.html$/],
     runtimeCaching: [
       {
         urlPattern: ({ request }) => request.destination === 'image',
