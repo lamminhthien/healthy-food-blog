@@ -4,6 +4,13 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { Article, Recipe } from '../../lib/content';
 import { ContentCard, SectionHeader } from './ui';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
 const image = (value?: string) =>
   value === 'assets/images/articles/healthy-breakfast-editorial.jpeg'
@@ -387,25 +394,29 @@ export function RecipesPage({ recipes }: { recipes: Recipe[] }) {
             className="min-w-[220px] flex-1 rounded-xl border border-[#e7e5df] bg-white px-[15px] py-3 shadow-sm"
             placeholder="Tìm tên món ăn..."
           />
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="rounded-xl border border-[#e7e5df] bg-white p-3 shadow-sm"
-          >
-            <option value="all">Tất cả bữa ăn</option>
-            {['Bữa sáng', 'Bữa trưa', 'Bữa tối', 'Ăn nhẹ'].map((x) => (
-              <option key={x}>{x}</option>
-            ))}
-          </select>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="rounded-xl border border-[#e7e5df] bg-white p-3 shadow-sm"
-          >
-            <option value="default">Sắp xếp mặc định</option>
-            <option value="time">Thời gian nhanh nhất</option>
-            <option value="calories">Ít calories nhất</option>
-          </select>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger className="min-w-[200px]">
+              <SelectValue placeholder="Tất cả bữa ăn" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả bữa ăn</SelectItem>
+              {['Bữa sáng', 'Bữa trưa', 'Bữa tối', 'Ăn nhẹ'].map((x) => (
+                <SelectItem key={x} value={x}>
+                  {x}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger className="min-w-[220px]">
+              <SelectValue placeholder="Sắp xếp mặc định" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="default">Sắp xếp mặc định</SelectItem>
+              <SelectItem value="time">Thời gian nhanh nhất</SelectItem>
+              <SelectItem value="calories">Ít calories nhất</SelectItem>
+            </SelectContent>
+          </Select>
           <span className="ml-auto text-[13px] text-[#74776f]">{visible.length} công thức</span>
         </div>
         <div className="grid gap-[22px] md:grid-cols-3">
