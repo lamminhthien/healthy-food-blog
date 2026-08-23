@@ -97,6 +97,7 @@ export function Shell({
       <Header active={active} />
       {children}
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
@@ -326,7 +327,6 @@ export function HomePage({ recipes, articles }: { recipes: Recipe[]; articles: A
         ))}
       </ListingSection>
       <NewsletterSection />
-      <ScrollToTop />
     </Shell>
   );
 }
