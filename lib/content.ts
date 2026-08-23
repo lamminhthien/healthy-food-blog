@@ -7,9 +7,9 @@ export type MealPlan = Record<string, any> & { title: string; description: strin
 
 function readData<T>(name: string): T[] {
   const possiblePaths = [
+    path.join(process.cwd(), 'data', `${name}.json`),
     path.join(process.cwd(), 'public', 'data', `${name}.json`),
     path.join(process.cwd(), 'public', `${name}.json`),
-    path.join(process.cwd(), 'data', `${name}.json`),
   ];
 
   for (const filePath of possiblePaths) {
