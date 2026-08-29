@@ -7,5 +7,5 @@ dev-dist/
 dist/
 .vercel
 .env*
-public/swe-worker-development.js
+public/swe-*
 public/workbox-*

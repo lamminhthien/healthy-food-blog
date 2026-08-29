@@ -22,8 +22,25 @@ const nav = [
 
 export function Header({ active }: { active?: string }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open]);
+
   return (
-    <header className="sticky top-0 z-10 flex h-[68px] items-center border-b border-[#eceae4] bg-[#faf9f6]/92 backdrop-blur-[12px] md:h-[105px]">
+    <header className="sticky top-0 z-30 flex h-[68px] items-center border-b border-[#eceae4] bg-[#faf9f6]/92 backdrop-blur-[12px] md:h-[105px]">
       <div className="relative mx-auto flex w-full items-center justify-between gap-2 px-[18px] md:px-[72px]">
         <Link
           className="inline-flex min-w-0 items-center gap-2 font-['Playfair_Display'] text-[16px] font-bold leading-none md:gap-2.5 md:text-[36px]"
@@ -39,28 +56,83 @@ export function Header({ active }: { active?: string }) {
             Nhà bếp <span className="text-[#78966c]">của Lyn</span>
           </span>
         </Link>
+
+        {/* Mobile backdrop overlay */}
+        <div
+          className={`fixed inset-0 top-[68px] z-10 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300 md:hidden ${
+            open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+
+        {/* Navigation Menu */}
         <nav
-          className={`${open ? 'flex' : 'hidden'} fixed left-0 right-0 top-[68px] z-20 max-h-[calc(100vh-68px)] flex-col gap-1 border-b border-[#e7e5df] bg-[#faf9f6] px-5 py-5 text-[15px] font-semibold shadow-[0_8px_24px_rgba(47,52,45,.12)] md:static md:flex md:max-h-none md:flex-row md:gap-[40px] md:border-0 md:bg-transparent md:px-0 md:py-0 md:text-[17px] md:shadow-none`}
+          id="mobile-menu"
+          className={`fixed left-0 right-0 top-[68px] z-20 flex max-h-[calc(100vh-68px)] flex-col gap-1 border-b border-[#e7e5df] bg-[#faf9f6]/98 px-5 py-5 text-[15px] font-semibold shadow-[0_12px_32px_rgba(47,52,45,.14)] backdrop-blur-lg transition-all duration-300 ease-out md:static md:flex md:max-h-none md:flex-row md:gap-[40px] md:border-0 md:bg-transparent md:px-0 md:py-0 md:text-[17px] md:shadow-none md:translate-y-0 md:opacity-100 md:pointer-events-auto ${
+            open
+              ? 'translate-y-0 opacity-100 pointer-events-auto'
+              : '-translate-y-4 opacity-0 pointer-events-none md:pointer-events-auto'
+          }`}
         >
-          {nav.map(([label, href]) => (
-            <Link
-              key={href}
-              className={`rounded-lg px-3 py-2 hover:bg-[#78966c]/10 md:rounded-none md:px-0 md:py-0 md:hover:bg-transparent ${active === href ? 'text-[#78966c]' : ''}`}
-              href={href}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
+          {nav.map(([label, href], index) => {
+            const isActive = active === href;
+            return (
+              <Link
+                key={href}
+                className={`flex items-center justify-between rounded-xl px-4 py-2.5 transition-all duration-200 hover:bg-[#78966c]/10 active:scale-[0.99] md:rounded-none md:px-0 md:py-0 md:hover:bg-transparent ${
+                  isActive
+                    ? 'bg-[#78966c]/15 text-[#547748] font-bold md:bg-transparent md:text-[#78966c]'
+                    : 'text-[#2f342d]'
+                } ${
+                  open
+                    ? 'translate-x-0 opacity-100'
+                    : '-translate-x-3 opacity-0 md:translate-x-0 md:opacity-100'
+                }`}
+                style={{
+                  transitionDelay: open ? `${index * 40 + 40}ms` : '0ms',
+                }}
+                href={href}
+                onClick={() => setOpen(false)}
+              >
+                <span>{label}</span>
+                {isActive && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#547748] md:hidden" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
+
+        {/* Animated Hamburger / Close Button */}
         <button
-          className="rounded-md p-2 text-[22px] leading-none transition hover:bg-[#78966c]/10 md:hidden"
+          className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#2f342d] transition-all duration-200 hover:bg-[#78966c]/10 active:scale-90 md:hidden"
           type="button"
-          aria-label="Mở menu"
+          aria-label={open ? 'Đóng menu' : 'Mở menu'}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen(!open)}
         >
-          ☰
+          <div className="relative flex h-[18px] w-[22px] flex-col justify-between">
+            {/* Top Bar */}
+            <span
+              className={`h-[2.5px] w-full rounded-full transition-all duration-300 ease-in-out origin-center ${
+                open ? 'translate-y-[7.75px] rotate-45 bg-[#5d874f]' : 'bg-[#2f342d]'
+              }`}
+            />
+            {/* Middle Bar */}
+            <span
+              className={`h-[2.5px] w-full rounded-full transition-all duration-200 ease-in-out ${
+                open ? 'scale-x-0 opacity-0 bg-[#5d874f]' : 'scale-x-100 opacity-100 bg-[#2f342d]'
+              }`}
+            />
+            {/* Bottom Bar */}
+            <span
+              className={`h-[2.5px] w-full rounded-full transition-all duration-300 ease-in-out origin-center ${
+                open ? '-translate-y-[7.75px] -rotate-45 bg-[#5d874f]' : 'bg-[#2f342d]'
+              }`}
+            />
+          </div>
         </button>
       </div>
     </header>
